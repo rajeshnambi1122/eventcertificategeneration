@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SREC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="assets/images/srec-logo.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: white;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-container {
+        flex: 1;
+        padding: 0 0 2rem 0; /* Added bottom padding */
+      }
+
+      .header-container {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo-header-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .left-img,
+      .right-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+
+      .left-img:hover,
+      .right-img:hover {
+        transform: scale(1.1);
+      }
+
+      .header-container h1 {
+        color: #ffd700;
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        margin: 0;
+      }
+
+      .content {
+        text-align: center;
+        padding: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        margin-top: 2rem;
+      }
+
+      .content p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .form-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem auto;
+        max-width: 500px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .form-container:hover {
+        transform: translateY(-5px);
+      }
+
+      .form-container label {
+        display: block;
+        color: #ffd700;
+        margin: 1rem 0 0.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-container input {
+        width: 100%;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-container input:focus {
+        outline: none;
+        border-color: #ffd700;
+        box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .form-container button {
+        width: 100%;
+        padding: 1rem 2rem;
+        background: linear-gradient(45deg, #ffd700, #ff8c00);
+        color: #000;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 2rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .form-container button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .form-container {
+          margin: 1rem;
+          padding: 1.5rem;
+        }
+
+        .content {
+          margin: 1rem;
+        }
+
+        .main-container {
+          padding: 0 0 1rem 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="header-container">
+        <div class="logo-header-wrapper">
+          <img
+            src="assets/images/snr-logo.png"
+            alt="SREC Logo"
+            class="left-img"
+          />
+          <h1>Sri Ramakrishna Engineering College</h1>
+          <img
+            src="assets/images/images.png"
+            alt="SREC Image"
+            class="right-img"
+          />
+        </div>
+      </div>
+
+      <div class="content">
+        <p>[Educational Service : SNR Sons Charitable Trust]</p>
+        <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
+        <p>
+          [Approved by AICTE and Permanently Affiliated to Anna University,
+          Chennai]
+        </p>
+        <p>
+          [ISO 9001: 2015 Certified and All eligible Programmes Accredited by
+          NBA]
+        </p>
+        <p>Vattamalaipalayam, Coimbatore – 641022.</p>
+      </div>
+
+      <div class="form-container">
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="college">College Name:</label>
+          <input type="text" id="college" name="college" required />
+          <label for="department">Department Name:</label>
+          <input type="text" id="department" name="department" required />
+          <label for="dob">Date Of Birth:</label>
+          <input type="date" id="dob" name="dob" required />
+          <label for="Year">Year:</label>
+          <input type="number" id="Year" name="Year" min="1" max="4" required />
+          <label for="email">Email Id:</label>
+          <input type="email" id="email" name="email" required />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
