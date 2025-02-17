@@ -16,7 +16,7 @@
 
       html,
       body {
-        min-height: 100vh;
+        height: 100%;
         margin: 0;
         padding: 0;
         overflow-x: hidden;
@@ -25,16 +25,17 @@
       body {
         background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
         background-size: 400% 400%;
+        background-attachment: fixed; /* Fix the background */
         animation: gradientBG 15s ease infinite;
         color: white;
         font-family: "Poppins", sans-serif;
-        display: flex;
-        flex-direction: column;
       }
 
       .main-container {
-        flex: 1;
-        padding: 0 0 2rem 0;
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       .header-container {
@@ -92,40 +93,40 @@
         flex-wrap: wrap;
         justify-content: center;
         gap: 5rem;
-        margin-top: 5rem;
+        margin: 5rem auto; /* Changed from margin-top to margin */
+        padding-bottom: 2rem; /* Add some bottom padding */
       }
 
       .event {
-  position: relative;
-  text-align: center;
-}
+        position: relative;
+        text-align: center;
+      }
 
-.event::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 180px; /* Slightly larger than the event image */
-  height: 180px;
-  background-size: cover;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-}
+      .event::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 180px; /* Slightly larger than the event image */
+        height: 180px;
+        background-size: cover;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
 
-.event img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid white;
-  transition: transform 0.3s ease;
-}
+      .event img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        transition: transform 0.3s ease;
+      }
 
-.event img:hover {
-  transform: scale(1.1);
-}
-
+      .event img:hover {
+        transform: scale(1.1);
+      }
 
       .event h1 {
         font-size: 1.5rem;
@@ -143,31 +144,70 @@
           background-position: 0% 50%;
         }
       }
+
+      @media (max-width: 768px) {
+        .event-container {
+          gap: 3rem;
+          margin: 3rem auto;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="main-container">
       <div class="header-container">
         <div class="logo-header-wrapper">
-          <img src="assets/images/snr-logo.png" alt="SREC Logo" class="left-img" />
+          <img
+            src="assets/images/snr-logo.png"
+            alt="SREC Logo"
+            class="left-img"
+          />
           <h1>Sri Ramakrishna Engineering College</h1>
-          <img src="assets/images/images.png" alt="SREC Image" class="right-img" />
+          <img
+            src="assets/images/images.png"
+            alt="SREC Image"
+            class="right-img"
+          />
         </div>
       </div>
       <div class="content">
         <p>[Educational Service : SNR Sons Charitable Trust]</p>
         <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
-        <p>[Approved by AICTE and Permanently Affiliated to Anna University, Chennai]</p>
-        <p>[ISO 9001: 2015 Certified and All eligible Programmes Accredited by NBA]</p>
+        <p>
+          [Approved by AICTE and Permanently Affiliated to Anna University,
+          Chennai]
+        </p>
+        <p>
+          [ISO 9001: 2015 Certified and All eligible Programmes Accredited by
+          NBA]
+        </p>
         <p>Vattamalaipalayam, Coimbatore – 641022.</p>
       </div>
       <div class="event-container">
-        <div class="event"><h1>HACKATHON</h1><img src="assets/images/HACKATHON.jpg" alt="Hackathon" /></div>
-        <div class="event"><h1>MASTERCLASS</h1><img src="assets/images/MASTERCLASS.jpg" alt="Masterclass" /></div>
-        <div class="event"><h1>NON TECH EVENTS</h1><img src="assets/images/NON-TECH.jpg" alt="Non-Tech Events" /></div>
-        <div class="event"><h1>PAPER PRESENTATION</h1><img src="assets/images/PAPER PRESENTATION.png" alt="Paper Presentation" /></div>
-        <div class="event"><h1>PROJECT EXPO</h1><img src="assets/images/project-expo.png" alt="Project Expo" /></div>
-    </div>
+        <div class="event" (click)="navigateToForm()">
+          <h1>HACKATHON</h1>
+          <img src="assets/images/HACKATHON.jpg" alt="Hackathon" />
+        </div>
+        <div class="event" (click)="navigateToForm()">
+          <h1>MASTERCLASS</h1>
+          <img src="assets/images/MASTERCLASS.jpg" alt="Masterclass" />
+        </div>
+        <div class="event" (click)="navigateToForm()">
+          <h1>NON TECH EVENTS</h1>
+          <img src="assets/images/NON-TECH.jpg" alt="Non-Tech Events" />
+        </div>
+        <div class="event" (click)="navigateToForm()">
+          <h1>PAPER PRESENTATION</h1>
+          <img
+            src="assets/images/PAPER PRESENTATION.png"
+            alt="Paper Presentation"
+          />
+        </div>
+        <div class="event" (click)="navigateToForm()">
+          <h1>PROJECT EXPO</h1>
+          <img src="assets/images/project-expo.png" alt="Project Expo" />
+        </div>
+      </div>
     </div>
   </body>
 </html>

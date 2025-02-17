@@ -8,28 +8,46 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
       body {
         background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
         background-size: 400% 400%;
+        background-attachment: fixed;
         animation: gradientBG 15s ease infinite;
         color: white;
-        margin: 0;
-        padding: 0;
         font-family: "Poppins", sans-serif;
-        min-height: 130vh;
+      }
+
+      .main-container {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       .header-container {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: opacity 0.5s ease-in-out;
-
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: opacity 0.5s ease-in-out;
       }
-      
+
       .logo-title-wrapper {
         display: flex;
         align-items: center;
@@ -38,7 +56,7 @@
         max-width: 1200px;
         margin: 0 auto;
       }
-      
+
       .left-img,
       .right-img {
         width: 50px;
@@ -59,9 +77,8 @@
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         margin: 0;
       }
-     
 
-       .content {
+      .content {
         text-align: center;
         padding: 1rem;
         max-width: 800px;
@@ -71,7 +88,7 @@
         border-radius: 15px;
         margin-top: 2rem;
       }
-       
+
       .content p {
         margin: 0.5rem 0;
         font-size: 1rem;
@@ -181,44 +198,46 @@
     </style>
   </head>
   <body>
-    <div class="header-container">
-      <div class="logo-title-wrapper">
-        <img
-          src="assets/images/snr-logo.png"
-          alt="SREC Logo"
-          class="left-img"
-        />
-        <h1>Sri Ramakrishna Engineering College</h1>
-        <img
-          src="assets/images/images.png"
-          alt="SREC Image"
-          class="right-img"
-        />
-      </div>      
-    </div>
-  
-    <div class="content">
-      <p>[Educational Service : SNR Sons Charitable Trust]</p>
-      <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
-      <p>
-        [Approved by AICTE and Permanently Affiliated to Anna University,
-        Chennai]
-      </p>
-      <p>
-        [ISO 9001: 2015 Certified and All eligible Programmes Accredited by
-        NBA]
-      </p>
-      <p>Vattamalaipalayam, Coimbatore – 641022.</p>
-    </div>
+    <div class="main-container">
+      <div class="header-container">
+        <div class="logo-title-wrapper">
+          <img
+            src="assets/images/snr-logo.png"
+            alt="SREC Logo"
+            class="left-img"
+          />
+          <h1>Sri Ramakrishna Engineering College</h1>
+          <img
+            src="assets/images/images.png"
+            alt="SREC Image"
+            class="right-img"
+          />
+        </div>
+      </div>
 
-    <div class="hero-section">
-      <h2>Welcome to Our College</h2>
-      <div class="event-card">
-        <h3>Event Registration</h3>
-        <p>Join us for an exciting journey of innovation and learning!</p>
-        <button class="event-button" (click)="navigateToeventpage()">
-          Register Now
-        </button>
+      <div class="content">
+        <p>[Educational Service : SNR Sons Charitable Trust]</p>
+        <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
+        <p>
+          [Approved by AICTE and Permanently Affiliated to Anna University,
+          Chennai]
+        </p>
+        <p>
+          [ISO 9001: 2015 Certified and All eligible Programmes Accredited by
+          NBA]
+        </p>
+        <p>Vattamalaipalayam, Coimbatore – 641022.</p>
+      </div>
+
+      <div class="hero-section">
+        <h2>Welcome to Our College</h2>
+        <div class="event-card">
+          <h3>Event Registration</h3>
+          <p>Join us for an exciting journey of innovation and learning!</p>
+          <button class="event-button" (click)="navigateToeventpage()">
+            Register Now
+          </button>
+        </div>
       </div>
     </div>
   </body>
