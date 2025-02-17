@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SREC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="assets/images/srec-logo.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: white;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-container {
+        flex: 1;
+        padding: 0 0 2rem 0;
+      }
+
+      .header-container {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo-header-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .left-img,
+      .right-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+
+      .left-img:hover,
+      .right-img:hover {
+        transform: scale(1.1);
+      }
+
+      .header-container h1 {
+        color: #ffd700;
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        margin: 0;
+      }
+
+      .content {
+        text-align: center;
+        padding: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        margin-top: 2rem;
+      }
+
+      .event-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5rem;
+        margin-top: 5rem;
+      }
+
+      .event {
+  position: relative;
+  text-align: center;
+}
+
+.event::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px; /* Slightly larger than the event image */
+  height: 180px;
+  background-size: cover;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.event img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  transition: transform 0.3s ease;
+}
+
+.event img:hover {
+  transform: scale(1.1);
+}
+
+
+      .event h1 {
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="header-container">
+        <div class="logo-header-wrapper">
+          <img src="assets/images/snr-logo.png" alt="SREC Logo" class="left-img" />
+          <h1>Sri Ramakrishna Engineering College</h1>
+          <img src="assets/images/images.png" alt="SREC Image" class="right-img" />
+        </div>
+      </div>
+      <div class="content">
+        <p>[Educational Service : SNR Sons Charitable Trust]</p>
+        <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
+        <p>[Approved by AICTE and Permanently Affiliated to Anna University, Chennai]</p>
+        <p>[ISO 9001: 2015 Certified and All eligible Programmes Accredited by NBA]</p>
+        <p>Vattamalaipalayam, Coimbatore – 641022.</p>
+      </div>
+      <div class="event-container">
+        <div class="event"><h1>HACKATHON</h1><img src="assets/images/HACKATHON.jpg" alt="Hackathon" /></div>
+        <div class="event"><h1>MASTERCLASS</h1><img src="assets/images/MASTERCLASS.jpg" alt="Masterclass" /></div>
+        <div class="event"><h1>NON TECH EVENTS</h1><img src="assets/images/NON-TECH.jpg" alt="Non-Tech Events" /></div>
+        <div class="event"><h1>PAPER PRESENTATION</h1><img src="assets/images/PAPER PRESENTATION.png" alt="Paper Presentation" /></div>
+        <div class="event"><h1>PROJECT EXPO</h1><img src="assets/images/project-expo.png" alt="Project Expo" /></div>
+    </div>
+    </div>
+  </body>
+</html>

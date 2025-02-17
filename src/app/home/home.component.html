@@ -16,18 +16,20 @@
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
-        min-height: 100vh;
+        min-height: 130vh;
       }
 
       .header-container {
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        padding: 1rem;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: opacity 0.5s ease-in-out;
 
+      }
+      
       .logo-title-wrapper {
         display: flex;
         align-items: center;
@@ -36,7 +38,7 @@
         max-width: 1200px;
         margin: 0 auto;
       }
-
+      
       .left-img,
       .right-img {
         width: 50px;
@@ -57,7 +59,24 @@
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         margin: 0;
       }
+     
 
+       .content {
+        text-align: center;
+        padding: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        margin-top: 2rem;
+      }
+       
+      .content p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
       .hero-section {
         text-align: center;
         padding: 4rem 1rem;
@@ -175,20 +194,9 @@
           alt="SREC Image"
           class="right-img"
         />
-      </div>
+      </div>      
     </div>
-
-    <div class="hero-section">
-      <h2>Welcome to Our College</h2>
-      <div class="event-card">
-        <h3>Event Registration</h3>
-        <p>Join us for an exciting journey of innovation and learning!</p>
-        <button class="event-button" (click)="navigateToForm()">
-          Register Now
-        </button>
-      </div>
-    </div>
-
+  
     <div class="content">
       <p>[Educational Service : SNR Sons Charitable Trust]</p>
       <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
@@ -197,9 +205,21 @@
         Chennai]
       </p>
       <p>
-        [ISO 9001: 2015 Certified and All eligible Programmes Accredited by NBA]
+        [ISO 9001: 2015 Certified and All eligible Programmes Accredited by
+        NBA]
       </p>
       <p>Vattamalaipalayam, Coimbatore – 641022.</p>
+    </div>
+
+    <div class="hero-section">
+      <h2>Welcome to Our College</h2>
+      <div class="event-card">
+        <h3>Event Registration</h3>
+        <p>Join us for an exciting journey of innovation and learning!</p>
+        <button class="event-button" (click)="navigateToeventpage()">
+          Register Now
+        </button>
+      </div>
     </div>
   </body>
 </html>

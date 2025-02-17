@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   constructor(private router: Router) {}
 
-  navigateToForm() {
-    this.router.navigate(['/form']);
+  navigateToeventpage() {
+    this.router.navigate(['/eventpage']);
   }
 }
