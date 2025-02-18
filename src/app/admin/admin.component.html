@@ -1,0 +1,223 @@
+<div class="admin-container">
+  <div class="header-container">
+    <div class="logo-header-wrapper">
+      <img src="assets/images/snr-logo.png" alt="SREC Logo" class="left-img" />
+      <h1>Admin Dashboard</h1>
+      <img src="assets/images/images.png" alt="SREC Image" class="right-img" />
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="tabs">
+      <button
+        [class.active]="activeTab === 'registrations'"
+        (click)="activeTab = 'registrations'"
+      >
+        Registrations
+      </button>
+      <button
+        [class.active]="activeTab === 'events'"
+        (click)="activeTab = 'events'"
+      >
+        Events
+      </button>
+    </div>
+
+    <div class="tab-content" *ngIf="activeTab === 'registrations'">
+      <div class="controls-container">
+        <div class="search-filters">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="applyFilters()"
+            placeholder="Search applications..."
+            class="search-input"
+          />
+
+          <select
+            [(ngModel)]="filterStatus"
+            (change)="applyFilters()"
+            class="filter-select"
+          >
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+
+          <select
+            [(ngModel)]="filterEvent"
+            (change)="applyFilters()"
+            class="filter-select"
+          >
+            <option value="all">All Events</option>
+            <option *ngFor="let event of events" [value]="event.name">
+              {{ event.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="sort-controls">
+          <button (click)="toggleSort('date')" class="sort-btn">
+            Date
+            {{
+              sortField === "date" ? (sortDirection === "asc" ? "↑" : "↓") : ""
+            }}
+          </button>
+          <button (click)="toggleSort('name')" class="sort-btn">
+            Name
+            {{
+              sortField === "name" ? (sortDirection === "asc" ? "↑" : "↓") : ""
+            }}
+          </button>
+          <button (click)="toggleSort('event')" class="sort-btn">
+            Event
+            {{
+              sortField === "event" ? (sortDirection === "asc" ? "↑" : "↓") : ""
+            }}
+          </button>
+        </div>
+      </div>
+
+      <div class="registrations-stats">
+        <div class="stat-card">
+          <h4>Total Applications</h4>
+          <p>{{ totalRegistrations }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>Pending</h4>
+          <p>{{ pendingRegistrations }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>Approved</h4>
+          <p>{{ approvedRegistrations }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>Rejected</h4>
+          <p>{{ rejectedRegistrations }}</p>
+        </div>
+      </div>
+
+      <div class="registrations-grid">
+        <div
+          class="registration-card"
+          *ngFor="let registration of paginatedRegistrations"
+        >
+          <div class="card-header">
+            <h3>{{ registration.studentName }}</h3>
+            <span class="status-badge" [class]="registration.status">
+              {{ registration.status }}
+            </span>
+          </div>
+          <div class="card-content">
+            <p><strong>Event:</strong> {{ registration.eventName }}</p>
+            <p><strong>College:</strong> {{ registration.college }}</p>
+            <p><strong>Department:</strong> {{ registration.department }}</p>
+            <p><strong>Year:</strong> {{ registration.year }}</p>
+            <p>
+              <strong>Date:</strong>
+              {{ registration.registrationDate | date : "medium" }}
+            </p>
+          </div>
+          <div class="action-buttons" *ngIf="registration.status === 'pending'">
+            <button
+              class="approve"
+              (click)="updateStatus(registration.id, 'approved')"
+            >
+              Approve
+            </button>
+            <button
+              class="reject"
+              (click)="updateStatus(registration.id, 'rejected')"
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          (click)="changePage(i + 1)"
+          [class.active]="currentPage === i + 1"
+          class="page-btn"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+
+    <div class="tab-content" *ngIf="activeTab === 'events'">
+      <h2>Manage Events</h2>
+      <button class="add-event-btn" (click)="showAddEventForm = true">
+        Add New Event
+      </button>
+
+      <div class="add-event-form" *ngIf="showAddEventForm">
+        <form (ngSubmit)="addNewEvent()">
+          <div class="form-group">
+            <label for="eventName">Event Name</label>
+            <input
+              type="text"
+              id="eventName"
+              [(ngModel)]="newEvent.name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              [(ngModel)]="newEvent.description"
+              name="description"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="date">Event Date</label>
+            <input
+              type="date"
+              id="date"
+              [(ngModel)]="newEvent.date"
+              name="date"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="image">Image URL</label>
+            <input
+              type="text"
+              id="image"
+              [(ngModel)]="newEvent.image"
+              name="image"
+              required
+            />
+          </div>
+          <div class="form-actions">
+            <button type="submit">Add Event</button>
+            <button type="button" (click)="showAddEventForm = false">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="events-grid">
+        <div class="event-card" *ngFor="let event of events">
+          <img [src]="event.image" [alt]="event.name" />
+          <div class="event-details">
+            <h3>{{ event.name }}</h3>
+            <p>{{ event.description }}</p>
+            <p><strong>Date:</strong> {{ event.date | date }}</p>
+            <p><strong>Status:</strong> {{ event.status }}</p>
+            <button class="remove-btn" (click)="removeEvent(event.id)">
+              Remove Event
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
