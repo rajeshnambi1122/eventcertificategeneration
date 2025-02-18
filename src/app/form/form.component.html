@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="assets/images/srec-logo.png" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap");
 
       * {
         margin: 0;
@@ -23,11 +23,9 @@
       }
 
       body {
-        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        color: white;
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
         font-family: "Poppins", sans-serif;
+        color: #2c3e50;
         display: flex;
         flex-direction: column;
       }
@@ -38,8 +36,8 @@
       }
 
       .header-container {
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
+        background: #fff;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         padding: 1rem;
         position: sticky;
         top: 0;
@@ -50,26 +48,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1.5rem;
+        gap: 2rem;
         max-width: 1200px;
         margin: 0 auto;
       }
 
       .left-img,
       .right-img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         object-fit: contain;
-        transition: transform 0.3s ease;
-      }
-
-      .left-img:hover,
-      .right-img:hover {
-        transform: scale(1.1);
       }
 
       .header-container h1 {
-        color: #ffd700;
+        color: #1a237e;
         font-size: clamp(1.2rem, 2.5vw, 2rem);
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -77,110 +69,124 @@
       }
 
       .content {
-        text-align: center;
-        padding: 1rem;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 2rem auto;
         max-width: 800px;
-        margin: 0 auto;
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
-        margin-top: 2rem;
       }
 
       .content p {
         margin: 0.5rem 0;
         font-size: 1rem;
-        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .form-section {
+        text-align: center;
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .form-section h2 {
+        font-family: "Playfair Display", serif;
+        color: #1a237e;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
       }
 
       .form-container {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 2rem;
-        border-radius: 15px;
+        background: #fff;
+        padding: 2.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin: 2rem auto;
-        max-width: 500px;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.3s ease;
       }
 
-      .form-container:hover {
-        transform: translateY(-5px);
+      .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
       }
 
-      .form-container label {
+      .form-row {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group.half {
+        flex: 1;
+      }
+
+      label {
         display: block;
-        color: #ffd700;
-        margin: 1rem 0 0.5rem;
+        color: #1a237e;
+        margin-bottom: 0.5rem;
         font-weight: 500;
         font-size: 0.9rem;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       }
 
-      .form-container input {
+      input {
         width: 100%;
-        padding: 12px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        color: white;
+        padding: 0.8rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
         font-size: 1rem;
         transition: all 0.3s ease;
       }
 
-      .form-container input:focus {
+      input:focus {
         outline: none;
-        border-color: #ffd700;
-        box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
-        background: rgba(255, 255, 255, 0.15);
+        border-color: #1a237e;
+        box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
       }
 
-      .form-container button {
-        width: 100%;
-        padding: 1rem 2rem;
-        background: linear-gradient(45deg, #ffd700, #ff8c00);
-        color: #000;
+      .readonly-input {
+        background-color: #f8f9fa;
+        color: #546e7a;
+      }
+
+      .submit-btn {
+        background: #1a237e;
+        color: #fff;
         border: none;
-        border-radius: 30px;
+        padding: 1rem 2rem;
+        border-radius: 5px;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 1.1rem;
-        margin-top: 2rem;
+        width: 100%;
         transition: all 0.3s ease;
         text-transform: uppercase;
         letter-spacing: 1px;
+        margin-top: 1rem;
       }
 
-      .form-container button:hover {
+      .submit-btn:hover {
+        background: #283593;
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-      }
-
-      @keyframes gradientBG {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+        box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
       }
 
       @media (max-width: 768px) {
-        .form-container {
+        .form-section {
+          padding: 1rem;
           margin: 1rem;
+        }
+
+        .form-container {
           padding: 1.5rem;
         }
 
-        .content {
-          margin: 1rem;
+        .form-row {
+          flex-direction: column;
+          gap: 0;
         }
 
-        .main-container {
-          padding: 0 0 1rem 0;
+        .form-group.half {
+          margin-bottom: 1.5rem;
         }
       }
     </style>
@@ -217,22 +223,90 @@
         <p>Vattamalaipalayam, Coimbatore – 641022.</p>
       </div>
 
-      <div class="form-container">
-        <form>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required />
-          <label for="college">College Name:</label>
-          <input type="text" id="college" name="college" required />
-          <label for="department">Department Name:</label>
-          <input type="text" id="department" name="department" required />
-          <label for="dob">Date Of Birth:</label>
-          <input type="date" id="dob" name="dob" required />
-          <label for="Year">Year:</label>
-          <input type="number" id="Year" name="Year" min="1" max="4" required />
-          <label for="email">Email Id:</label>
-          <input type="email" id="email" name="email" required />
-          <button type="submit">Submit</button>
-        </form>
+      <div class="form-section">
+        <h2>Event Registration Form</h2>
+        <div class="form-container">
+          <form>
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Enter your full name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="eventType">Selected Event</label>
+              <input
+                type="text"
+                id="eventType"
+                name="eventType"
+                [value]="eventType"
+                readonly
+                class="readonly-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="college">College Name</label>
+              <input
+                type="text"
+                id="college"
+                name="college"
+                required
+                placeholder="Enter your college name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="department">Department</label>
+              <input
+                type="text"
+                id="department"
+                name="department"
+                required
+                placeholder="Enter your department"
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required />
+              </div>
+
+              <div class="form-group half">
+                <label for="Year">Year of Study</label>
+                <input
+                  type="number"
+                  id="Year"
+                  name="Year"
+                  min="1"
+                  max="4"
+                  required
+                  placeholder="1-4"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="Enter your email address"
+              />
+            </div>
+
+            <button type="submit" class="submit-btn">
+              Submit Registration
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </body>

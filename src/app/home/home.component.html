@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="assets/images/srec-logo.png" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap");
 
       * {
         margin: 0;
@@ -14,176 +14,128 @@
         box-sizing: border-box;
       }
 
-      html,
       body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-      }
-
-      body {
-        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-        background-size: 400% 400%;
-        background-attachment: fixed;
-        animation: gradientBG 15s ease infinite;
-        color: white;
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
         font-family: "Poppins", sans-serif;
-      }
-
-      .main-container {
+        color: #2c3e50;
         min-height: 100vh;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
       }
 
       .header-container {
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
+        background: #fff;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         padding: 1rem;
         position: sticky;
         top: 0;
         z-index: 100;
-        transition: opacity 0.5s ease-in-out;
       }
 
-      .logo-title-wrapper {
+      .logo-header-wrapper {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1.5rem;
+        gap: 2rem;
         max-width: 1200px;
         margin: 0 auto;
       }
 
       .left-img,
       .right-img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         object-fit: contain;
         transition: transform 0.3s ease;
       }
 
-      .left-img:hover,
-      .right-img:hover {
-        transform: scale(1.1);
-      }
-
       .header-container h1 {
-        color: #ffd700;
+        font-family: "Playfair Display", serif;
+        color: #1a237e;
         font-size: clamp(1.2rem, 2.5vw, 2rem);
         font-weight: 600;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        margin: 0;
+        text-align: center;
       }
 
       .content {
-        text-align: center;
-        padding: 1rem;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 2rem auto;
         max-width: 800px;
-        margin: 0 auto;
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
-        margin-top: 2rem;
       }
 
       .content p {
+        color: #546e7a;
         margin: 0.5rem 0;
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.95rem;
+        line-height: 1.6;
       }
+
       .hero-section {
         text-align: center;
-        padding: 4rem 1rem;
-        background: rgba(0, 0, 0, 0.2);
+        padding: 4rem 2rem;
+        background: #fff;
         margin: 2rem auto;
-        border-radius: 20px;
         max-width: 1000px;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       .hero-section h2 {
-        color: #ffffff;
-        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-family: "Playfair Display", serif;
+        color: #1a237e;
+        font-size: clamp(2rem, 4vw, 3rem);
         margin-bottom: 2rem;
         font-weight: 700;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       }
 
       .event-card {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 2rem;
-        border-radius: 15px;
+        background: #f8f9fa;
+        padding: 2.5rem;
+        border-radius: 8px;
         margin: 2rem auto;
-        max-width: 400px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.3s ease;
+        max-width: 500px;
+        border: 1px solid #e0e0e0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
       .event-card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
       }
 
       .event-card h3 {
-        color: #ffd700;
-        font-size: 1.5rem;
+        color: #1a237e;
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
         margin-bottom: 1rem;
       }
 
       .event-button {
-        background: linear-gradient(45deg, #ffd700, #ff8c00);
-        color: #000;
+        background: #1a237e;
+        color: #fff;
         border: none;
-        padding: 1rem 2rem;
-        border-radius: 30px;
+        padding: 1rem 2.5rem;
+        border-radius: 5px;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 1.1rem;
         transition: all 0.3s ease;
         text-transform: uppercase;
         letter-spacing: 1px;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
       }
 
       .event-button:hover {
+        background: #283593;
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-      }
-
-      .content {
-        text-align: center;
-        padding: 2rem;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .content p {
-        margin: 0.5rem 0;
-        font-size: 1rem;
-        opacity: 0.9;
-      }
-
-      @keyframes gradientBG {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+        box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
       }
 
       @media (max-width: 768px) {
         .hero-section {
-          margin: 1rem;
           padding: 2rem 1rem;
+          margin: 1rem;
         }
 
         .event-card {
@@ -192,7 +144,7 @@
         }
 
         .content {
-          padding: 1rem;
+          margin: 1rem;
         }
       }
     </style>
@@ -200,7 +152,7 @@
   <body>
     <div class="main-container">
       <div class="header-container">
-        <div class="logo-title-wrapper">
+        <div class="logo-header-wrapper">
           <img
             src="assets/images/snr-logo.png"
             alt="SREC Logo"

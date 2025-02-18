@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-eventpage',
   imports: [],
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class EventpageComponent {
   constructor(private router: Router) {}
 
-  navigateToForm() {
-    this.router.navigate(['/form']);
+  navigateToForm(eventType: string) {
+    this.router.navigate(['/form'], {
+      queryParams: { event: eventType },
+    });
   }
 }

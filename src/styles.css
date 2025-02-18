@@ -4,3 +4,73 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --primary-color: #1e3d59;
+  --secondary-color: #8b0000;
+  --accent-color: #c5a572;
+  --text-color: #2c3e50;
+  --light-bg: #f5f5f5;
+  --header-bg: rgba(30, 61, 89, 0.95);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --border-color: #c5a572;
+}
+
+body {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  color: var(--text-color);
+  font-family: "Crimson Text", "Times New Roman", serif;
+}
+
+.header-container {
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+}
+
+.header-container h1 {
+  color: var(--accent-color);
+  font-family: "Playfair Display", serif;
+  letter-spacing: 1px;
+}
+
+.content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.event-card,
+.form-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+button {
+  background: var(--primary-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: var(--accent-color);
+  color: var(--primary-color);
+}
+
+input {
+  border: 1px solid var(--border-color);
+  background: var(--light-bg);
+  color: var(--text-color);
+}
+
+label {
+  color: var(--primary-color);
+  font-family: "Playfair Display", serif;
+}

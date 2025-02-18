@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -10,7 +11,14 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './form.component.css',
 })
 export class FormComponent implements OnInit {
+  eventType: string = '';
+
+  constructor(private route: ActivatedRoute) {}
+
   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.eventType = params['event'] || '';
+    });
     // Debug image paths
     console.log('Checking image at:', './assets/images/snr-logo.png');
     const img = new Image();
