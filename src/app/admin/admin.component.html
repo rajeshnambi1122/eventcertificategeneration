@@ -149,13 +149,26 @@
     </div>
 
     <div class="tab-content" *ngIf="activeTab === 'events'">
-      <h2>Manage Events</h2>
-      <button class="add-event-btn" (click)="showAddEventForm = true">
-        Add New Event
-      </button>
+      <div class="events-header">
+        <h2>Manage Events</h2>
+        <button class="add-event-btn" (click)="showAddEventForm = true">
+          <i class="fas fa-plus"></i> Add New Event
+        </button>
+      </div>
 
       <div class="add-event-form" *ngIf="showAddEventForm">
         <form (ngSubmit)="addNewEvent()">
+          <div class="form-header">
+            <h3>Add New Event</h3>
+            <button
+              type="button"
+              class="close-btn"
+              (click)="showAddEventForm = false"
+            >
+              ×
+            </button>
+          </div>
+
           <div class="form-group">
             <label for="eventName">Event Name</label>
             <input
@@ -164,8 +177,10 @@
               [(ngModel)]="newEvent.name"
               name="name"
               required
+              placeholder="Enter event name"
             />
           </div>
+
           <div class="form-group">
             <label for="description">Description</label>
             <textarea
@@ -173,8 +188,11 @@
               [(ngModel)]="newEvent.description"
               name="description"
               required
+              placeholder="Enter event description"
+              rows="4"
             ></textarea>
           </div>
+
           <div class="form-group">
             <label for="date">Event Date</label>
             <input
@@ -185,6 +203,7 @@
               required
             />
           </div>
+
           <div class="form-group">
             <label for="image">Image URL</label>
             <input
@@ -193,11 +212,17 @@
               [(ngModel)]="newEvent.image"
               name="image"
               required
+              placeholder="Enter image URL"
             />
           </div>
+
           <div class="form-actions">
-            <button type="submit">Add Event</button>
-            <button type="button" (click)="showAddEventForm = false">
+            <button type="submit" class="submit-btn">Add Event</button>
+            <button
+              type="button"
+              class="cancel-btn"
+              (click)="showAddEventForm = false"
+            >
               Cancel
             </button>
           </div>
@@ -206,14 +231,24 @@
 
       <div class="events-grid">
         <div class="event-card" *ngFor="let event of events">
-          <img [src]="event.image" [alt]="event.name" />
+          <div class="event-image">
+            <img [src]="event.image" [alt]="event.name" />
+            <div
+              class="event-status"
+              [class.active]="event.status === 'active'"
+            >
+              {{ event.status }}
+            </div>
+          </div>
           <div class="event-details">
             <h3>{{ event.name }}</h3>
-            <p>{{ event.description }}</p>
-            <p><strong>Date:</strong> {{ event.date | date }}</p>
-            <p><strong>Status:</strong> {{ event.status }}</p>
+            <p class="event-description">{{ event.description }}</p>
+            <p class="event-date">
+              <i class="fas fa-calendar"></i>
+              {{ event.date | date }}
+            </p>
             <button class="remove-btn" (click)="removeEvent(event.id)">
-              Remove Event
+              <i class="fas fa-trash"></i> Remove Event
             </button>
           </div>
         </div>
