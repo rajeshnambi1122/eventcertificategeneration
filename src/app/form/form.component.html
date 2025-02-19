@@ -192,121 +192,87 @@
     </style>
   </head>
   <body>
-    <div class="main-container">
-      <div class="header-container">
-        <div class="logo-header-wrapper">
-          <img
-            src="assets/images/snr-logo.png"
-            alt="SREC Logo"
-            class="left-img"
-          />
-          <h1>Sri Ramakrishna Engineering College</h1>
-          <img
-            src="assets/images/images.png"
-            alt="SREC Image"
-            class="right-img"
-          />
-        </div>
-      </div>
+    <div class="form-section">
+      <h2>Event Registration Form</h2>
+      <div class="form-container">
+        <form>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Enter your full name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="eventType">Selected Event</label>
+            <input
+              type="text"
+              id="eventType"
+              name="eventType"
+              [value]="eventType"
+              readonly
+              class="readonly-input"
+            />
+          </div>
 
-      <div class="content">
-        <p>[Educational Service : SNR Sons Charitable Trust]</p>
-        <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
-        <p>
-          [Approved by AICTE and Permanently Affiliated to Anna University,
-          Chennai]
-        </p>
-        <p>
-          [ISO 9001: 2015 Certified and All eligible Programmes Accredited by
-          NBA]
-        </p>
-        <p>Vattamalaipalayam, Coimbatore – 641022.</p>
-      </div>
+          <div class="form-group">
+            <label for="college">College Name</label>
+            <input
+              type="text"
+              id="college"
+              name="college"
+              required
+              placeholder="Enter your college name"
+            />
+          </div>
 
-      <div class="form-section">
-        <h2>Event Registration Form</h2>
-        <div class="form-container">
-          <form>
-            <div class="form-group">
-              <label for="name">Full Name</label>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input
+              type="text"
+              id="department"
+              name="department"
+              required
+              placeholder="Enter your department"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" name="dob" required />
+            </div>
+
+            <div class="form-group half">
+              <label for="Year">Year of Study</label>
               <input
-                type="text"
-                id="name"
-                name="name"
+                type="number"
+                id="Year"
+                name="Year"
+                min="1"
+                max="4"
                 required
-                placeholder="Enter your full name"
+                placeholder="1-4"
               />
             </div>
-            <div class="form-group">
-              <label for="eventType">Selected Event</label>
-              <input
-                type="text"
-                id="eventType"
-                name="eventType"
-                [value]="eventType"
-                readonly
-                class="readonly-input"
-              />
-            </div>
+          </div>
 
-            <div class="form-group">
-              <label for="college">College Name</label>
-              <input
-                type="text"
-                id="college"
-                name="college"
-                required
-                placeholder="Enter your college name"
-              />
-            </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Enter your email address"
+            />
+          </div>
 
-            <div class="form-group">
-              <label for="department">Department</label>
-              <input
-                type="text"
-                id="department"
-                name="department"
-                required
-                placeholder="Enter your department"
-              />
-            </div>
-
-            <div class="form-row">
-              <div class="form-group half">
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" required />
-              </div>
-
-              <div class="form-group half">
-                <label for="Year">Year of Study</label>
-                <input
-                  type="number"
-                  id="Year"
-                  name="Year"
-                  min="1"
-                  max="4"
-                  required
-                  placeholder="1-4"
-                />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="Enter your email address"
-              />
-            </div>
-
-            <button type="submit" class="submit-btn">
-              Submit Registration
-            </button>
-          </form>
-        </div>
+          <button type="submit" class="submit-btn">Submit Registration</button>
+        </form>
       </div>
     </div>
   </body>

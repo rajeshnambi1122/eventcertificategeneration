@@ -1,0 +1,188 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    font-family: "Poppins", sans-serif;
+    color: #2c3e50;
+    min-height: 80vh;
+  }
+
+  .header-container {
+    background: #fff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .left-img,
+  .right-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .header-container h1 {
+    font-family: "Playfair Display", serif;
+    color: #1a237e;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 800px;
+  }
+
+  .content p {
+    color: #546e7a;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .hero-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    margin: 2rem auto;
+    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-section h2 {
+    font-family: "Playfair Display", serif;
+    color: #1a237e;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .event-card {
+    background: #f8f9fa;
+    padding: 2.5rem;
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 500px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .event-card h3 {
+    color: #1a237e;
+    font-family: "Playfair Display", serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .event-button {
+    background: #1a237e;
+    color: #fff;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 1.5rem;
+  }
+
+  .event-button:hover {
+    background: #283593;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(26, 35, 126, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 2rem 1rem;
+      margin: 1rem;
+    }
+
+    .event-card {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .content {
+      margin: 1rem;
+    }
+    .header-container {
+      padding: 0;
+    }
+    .header-container h1 {
+      font-size: 10px;
+    }
+    .left-img,
+    .right-img {
+      width: 30px;
+      height: 60px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+  }
+</style>
+<body>
+  <div class="main-container">
+    <div class="header-container">
+      <div class="logo-header-wrapper">
+        <img
+          src="assets/images/snr-logo.png"
+          alt="SREC Logo"
+          class="left-img"
+        />
+        <h1>Sri Ramakrishna Engineering College</h1>
+        <img
+          src="assets/images/images.png"
+          alt="SREC Image"
+          class="right-img"
+        />
+      </div>
+    </div>
+
+    <div class="content">
+      <p>[Educational Service : SNR Sons Charitable Trust]</p>
+      <p>[Autonomous Institution, Reaccredited by NAAC with 'A+' Grade]</p>
+      <p>
+        [Approved by AICTE and Permanently Affiliated to Anna University,
+        Chennai]
+      </p>
+      <p>
+        [ISO 9001: 2015 Certified and All eligible Programmes Accredited by NBA]
+      </p>
+      <p>Vattamalaipalayam, Coimbatore – 641022.</p>
+    </div>
+  </div>
+</body>

@@ -1,2 +1,6 @@
-
-<router-outlet />
+<body>
+  <div class="main-container">
+    <app-header-ui *ngIf="!isAdminRoute()"></app-header-ui>
+    <router-outlet></router-outlet>
+  </div>
+</body>
