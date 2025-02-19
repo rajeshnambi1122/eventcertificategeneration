@@ -70,7 +70,12 @@ export class FormComponent implements OnInit {
   }
 
   validateYear(event: Event) {
-    const value = +((<HTMLInputElement>event.target)?.value || 0);
-    this.registrationData.year = value > 4 ? 4 : value;
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
+    if (value.length > 1) {
+      value = value.slice(0, 1);
+      input.value = value;
+    }
+    this.registrationData.year = +value > 4 ? 4 : +value;
   }
 }
