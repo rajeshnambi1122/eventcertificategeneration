@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AdminService } from '../services/admin.service';
 import { Event, Registration } from '../interfaces/event.interface';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  providers: [AdminService, HttpClient],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
 })
@@ -24,6 +26,8 @@ export class AdminComponent implements OnInit {
   itemsPerPage = 12;
   sortField: 'date' | 'name' | 'event' = 'date';
   sortDirection: 'asc' | 'desc' = 'desc';
+  imagePreview: string | null = null;
+  selectedFile: File | null = null;
 
   newEvent: Omit<Event, 'id' | 'status'> = {
     name: '',
@@ -107,19 +111,45 @@ export class AdminComponent implements OnInit {
       });
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      this.selectedFile = file;
+      // Convert to base64
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+        // Store base64 string without the data:image/xxx;base64, prefix
+        const base64String = (reader.result as string).split(',')[1];
+        this.newEvent.image = base64String;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeImage() {
+    this.imagePreview = null;
+    this.selectedFile = null;
+  }
+
   addNewEvent() {
-    this.adminService
-      .addEvent({ ...this.newEvent, status: 'active' })
-      .subscribe((event) => {
-        this.events.push(event);
+    if (!this.newEvent.image) {
+      alert('Please select an image');
+      return;
+    }
+
+    // Now sending JSON instead of FormData
+    this.adminService.addEvent(this.newEvent).subscribe({
+      next: (response) => {
+        this.events.push(response);
         this.showAddEventForm = false;
-        this.newEvent = {
-          name: '',
-          description: '',
-          image: '',
-          date: '',
-        };
-      });
+        this.removeImage();
+      },
+      error: (error) => {
+        console.error('Error adding event:', error);
+        alert('Failed to add event');
+      },
+    });
   }
 
   changePage(page: number) {

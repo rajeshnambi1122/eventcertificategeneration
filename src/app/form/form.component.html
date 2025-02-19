@@ -195,13 +195,14 @@
     <div class="form-section">
       <h2>Event Registration Form</h2>
       <div class="form-container">
-        <form>
+        <form (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="name">Full Name</label>
             <input
               type="text"
               id="name"
-              name="name"
+              name="studentName"
+              [(ngModel)]="registrationData.studentName"
               required
               placeholder="Enter your full name"
             />
@@ -224,6 +225,7 @@
               type="text"
               id="college"
               name="college"
+              [(ngModel)]="registrationData.college"
               required
               placeholder="Enter your college name"
             />
@@ -235,6 +237,7 @@
               type="text"
               id="department"
               name="department"
+              [(ngModel)]="registrationData.department"
               required
               placeholder="Enter your department"
             />
@@ -243,31 +246,40 @@
           <div class="form-row">
             <div class="form-group half">
               <label for="dob">Date of Birth</label>
-              <input type="date" id="dob" name="dob" required />
+              <input
+                type="date"
+                id="dob"
+                name="dob"
+                [(ngModel)]="registrationData.dob"
+                required
+              />
             </div>
 
             <div class="form-group half">
-              <label for="Year">Year of Study</label>
+              <label for="year">Year of Study</label>
               <input
                 type="number"
-                id="Year"
-                name="Year"
+                id="year"
+                name="year"
+                [(ngModel)]="registrationData.year"
                 min="1"
                 max="4"
                 required
+                (input)="validateYear($event)"
                 placeholder="1-4"
               />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="email">Email Address</label>
+            <label for="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
+              [(ngModel)]="registrationData.email"
               required
-              placeholder="Enter your email address"
+              placeholder="Enter your email"
             />
           </div>
 

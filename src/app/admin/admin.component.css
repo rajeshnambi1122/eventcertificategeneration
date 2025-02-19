@@ -566,3 +566,68 @@
     width: 100%;
   }
 }
+
+.image-upload-container {
+  border: 2px dashed #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  position: relative;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-placeholder {
+  cursor: pointer;
+  padding: 2rem;
+  color: #666;
+}
+
+.upload-placeholder i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #1a237e;
+}
+
+.upload-placeholder span {
+  display: block;
+}
+
+.preview-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 4px;
+}
+
+.remove-image {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #b71c1c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.remove-image:hover {
+  background: #d32f2f;
+}
+
+.image-upload-container:hover {
+  border-color: #1a237e;
+}

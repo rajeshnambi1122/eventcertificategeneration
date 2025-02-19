@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
           </ul>
         </div>
 
-        <div class="footer-section">
+        <!-- <div class="footer-section">
           <h3>Follow Us</h3>
           <div class="social-links">
             <a href="#"><i class="fab fa-facebook"></i></a>
@@ -34,7 +34,7 @@ import { CommonModule } from '@angular/common';
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="footer-bottom">
         <p>

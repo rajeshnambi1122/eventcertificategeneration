@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Event, Registration } from '../interfaces/event.interface';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,10 @@ export class AdminService {
     // Add more dummy registrations...
   ];
 
+  private apiUrl = 'your-api-url';
+
+  constructor(private http: HttpClient) {}
+
   getEvents(): Observable<Event[]> {
     return of(this.dummyEvents);
   }
@@ -55,13 +60,8 @@ export class AdminService {
     return of(false);
   }
 
-  addEvent(event: Omit<Event, 'id'>): Observable<Event> {
-    const newEvent: Event = {
-      ...event,
-      id: (this.dummyEvents.length + 1).toString(),
-    };
-    this.dummyEvents.push(newEvent);
-    return of(newEvent);
+  addEvent(event: Omit<Event, 'id' | 'status'>): Observable<Event> {
+    return this.http.post<Event>(`${this.apiUrl}/events`, event);
   }
 
   removeEvent(id: string): Observable<boolean> {
