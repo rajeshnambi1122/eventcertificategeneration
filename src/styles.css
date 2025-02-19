@@ -17,11 +17,6 @@
 }
 
 body {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
   background-size: 400% 400%;
   background-attachment: fixed;
   color: var(--text-color);

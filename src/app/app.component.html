@@ -2,5 +2,6 @@
   <div class="main-container">
     <app-header-ui *ngIf="!isAdminRoute()"></app-header-ui>
     <router-outlet></router-outlet>
+    <app-footer *ngIf="!isAdminRoute()"></app-footer>
   </div>
 </body>
