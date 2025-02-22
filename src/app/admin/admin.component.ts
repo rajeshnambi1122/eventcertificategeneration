@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AdminService } from '../services/admin.service';
 import { Event, Registration } from '../interfaces/event.interface';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, MatDialogModule],
   providers: [AdminService, HttpClient],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
@@ -36,7 +38,10 @@ export class AdminComponent implements OnInit {
     date: '',
   };
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.loadRegistrations();
@@ -189,12 +194,19 @@ export class AdminComponent implements OnInit {
   }
 
   removeEvent(id: string) {
-    if (confirm('Are you sure you want to remove this event?')) {
-      this.adminService.removeEvent(id).subscribe((success) => {
-        if (success) {
-          this.loadEvents();
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { title: 'Confirm Deletion', message: 'Are you sure you want to remove this event?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adminService.removeEvent(id).subscribe((success) => {
+          if (success) {
+            this.loadEvents();
+          }
+        });
+      }
+    });
   }
 }
