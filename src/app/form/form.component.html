@@ -257,18 +257,19 @@
 
             <div class="form-group half">
               <label for="year">Year of Study</label>
-              <input
-                type="number"
+              <select
                 id="year"
                 name="year"
                 [(ngModel)]="registrationData.year"
-                min="1"
-                max="4"
                 required
-                maxlength="1"
-                (input)="validateYear($event)"
-                placeholder="1-4"
-              />
+                class="form-select"
+              >
+                <option value="0" disabled selected>Select Year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
             </div>
           </div>
 

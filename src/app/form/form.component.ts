@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from '../services/registration.service';
 import { AdminService } from '../services/admin.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, MatDialogModule],
   providers: [RegistrationService, AdminService],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
@@ -29,7 +31,8 @@ export class FormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private registrationService: RegistrationService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -55,27 +58,44 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.registrationService
-      .submitRegistration(this.registrationData)
-      .subscribe({
-        next: (response) => {
-          alert('Registration successful!');
-          // Handle success (e.g., redirect or clear form)
-        },
-        error: (error) => {
-          console.error('Registration failed:', error);
-          alert('Registration failed. Please try again.');
-        },
-      });
-  }
+    // Ensure year is a number
+    this.registrationData.year = Number(this.registrationData.year);
 
-  validateYear(event: Event) {
-    const input = event.target as HTMLInputElement;
-    let value = input.value;
-    if (value.length > 1) {
-      value = value.slice(0, 1);
-      input.value = value;
-    }
-    this.registrationData.year = +value > 4 ? 4 : +value;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Confirm Registration',
+        message: 'Please check if all the information is correct before proceeding.',
+        isError: false
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.registrationService.submitRegistration(this.registrationData).subscribe({
+          next: (response) => {
+            this.dialog.open(ConfirmDialogComponent, {
+              width: '400px',
+              data: {
+                title: 'Success',
+                message: 'Registration successful!',
+                isError: false
+              }
+            });
+          },
+          error: (error) => {
+            console.error('Registration failed:', error);
+            this.dialog.open(ConfirmDialogComponent, {
+              width: '400px',
+              data: {
+                title: 'Error',
+                message: 'Registration failed. Please try again.',
+                isError: true
+              }
+            });
+          },
+        });
+      }
+    });
   }
 }
