@@ -161,7 +161,7 @@
       </div>
 
       <div class="add-event-form" *ngIf="showAddEventForm">
-        <form (ngSubmit)="addNewEvent()">
+        <form (ngSubmit)="addNewEvent()" #eventForm="ngForm">
           <div class="form-header">
             <h3>Add New Event</h3>
             <button
@@ -254,14 +254,18 @@
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="submit-btn">Add Event</button>
-            <button
-              type="button"
-              class="cancel-btn"
-              (click)="showAddEventForm = false"
-            >
-              Cancel
-            </button>
+            <div *ngIf="isAddingEvent" class="button-spinner">
+              <div class="spinner"></div>
+            </div>
+            
+            <ng-container *ngIf="!isAddingEvent">
+              <button type="submit" class="submit-btn" [disabled]="!eventForm.form.valid">
+                Add Event
+              </button>
+              <button type="button" class="cancel-btn" (click)="showAddEventForm = false">
+                Cancel
+              </button>
+            </ng-container>
           </div>
         </form>
       </div>
