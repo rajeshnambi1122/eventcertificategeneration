@@ -251,6 +251,8 @@
                 id="dob"
                 name="dob"
                 [(ngModel)]="registrationData.dob"
+                [min]="minDate"
+                [max]="maxDate"
                 required
               />
             </div>

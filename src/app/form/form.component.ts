@@ -28,6 +28,8 @@ export class FormComponent implements OnInit {
     email: '',
     dob: '',
   };
+  minDate: string;
+  maxDate: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +37,12 @@ export class FormComponent implements OnInit {
     private adminService: AdminService,
     private authService: AuthService,
     private dialog: MatDialog
-  ) {}
+  ) {
+    // Set min date to January 1, 2000
+    this.minDate = '2000-01-01';
+    // Set max date to December 31, 2015
+    this.maxDate = '2015-12-31';
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
