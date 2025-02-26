@@ -2,6 +2,11 @@
   min-height: 100vh;
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
   font-family: "Poppins", sans-serif;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .header-container {
@@ -70,8 +75,10 @@
 
 .registrations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .registration-card {
@@ -80,6 +87,9 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
 }
 
 .registration-card:hover {
@@ -238,6 +248,30 @@
 
   .stat-card p {
     font-size: 1.2rem;
+  }
+
+  .admin-container {
+    padding: 8px;
+  }
+
+  .controls-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-filters {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-input,
+  .filter-select {
+    width: 100%;
+  }
+
+  .sort-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
@@ -406,9 +440,10 @@
 
 .events-grid {
   display: grid;
+  gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 1rem 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .event-card {
@@ -417,6 +452,8 @@
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .event-card:hover {
@@ -432,7 +469,7 @@
 
 .event-image img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
 }
 
