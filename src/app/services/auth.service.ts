@@ -17,11 +17,11 @@ export class AuthService {
   }
 
   logout(): void {
-    // Implementation needed
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {
-    // Implementation needed
-    return false;
+    const token = localStorage.getItem('token');
+    return !!token; // Returns true if token exists, false otherwise
   }
 }

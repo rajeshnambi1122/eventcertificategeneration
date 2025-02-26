@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 * {
   margin: 0;
   padding: 0;
@@ -70,5 +72,20 @@ label {
   font-family: "Playfair Display", serif;
 }
 
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+.custom-dialog-container .mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 12px !important;
+}
+
+.custom-dialog-container {
+  margin: 0 !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 0 !important;
+  border-radius: 12px !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__container {
+  padding: 0 !important;
+}

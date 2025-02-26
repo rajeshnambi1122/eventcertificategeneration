@@ -4,7 +4,7 @@ import { EventpageComponent } from './eventpage/eventpage.component';
 import { FormComponent } from './form/form.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
-
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Default route
@@ -15,6 +15,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: '' }, // Wildcard route for 404
 ];

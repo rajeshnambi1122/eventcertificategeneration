@@ -86,6 +86,8 @@ export class FormComponent implements OnInit {
       
       this.dialog.open(ConfirmDialogComponent, {
         width: '400px',
+        maxWidth: '95vw',
+        panelClass: 'custom-dialog-container',
         data: {
           title: 'Required Fields',
           message: 'Please fill in all required fields before submitting.',
@@ -108,6 +110,8 @@ export class FormComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
+      maxWidth: '95vw',
+      panelClass: 'custom-dialog-container',
       data: {
         title: 'Confirm Registration',
         message: 'Please check if all the information is correct before proceeding.',
@@ -115,13 +119,29 @@ export class FormComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.registrationService.submitRegistration(formattedData).subscribe({
           next: (response) => {
+            if (response.status === 'ALREADY_REPORTED') {
+              this.dialog.open(ConfirmDialogComponent, {
+                width: '400px',
+                maxWidth: '95vw',
+                panelClass: 'custom-dialog-container',
+                data: {
+                  title: 'Already Registered',
+                  message: response.message || 'You have already registered for this event.',
+                  isError: true
+                }
+              });
+              return;
+            }
+
             console.log('Registration successful:', response);
             this.dialog.open(ConfirmDialogComponent, {
               width: '400px',
+              maxWidth: '95vw',
+              panelClass: 'custom-dialog-container',
               data: {
                 title: 'Success',
                 message: 'Registration successful!',
@@ -133,9 +153,11 @@ export class FormComponent implements OnInit {
             console.error('Registration failed:', error);
             this.dialog.open(ConfirmDialogComponent, {
               width: '400px',
+              maxWidth: '95vw',
+              panelClass: 'custom-dialog-container',
               data: {
                 title: 'Error',
-                message: 'Registration failed. Please try again.',
+                message: error.error?.message || 'Registration failed. Please try again.',
                 isError: true
               }
             });

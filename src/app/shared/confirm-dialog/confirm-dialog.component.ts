@@ -168,10 +168,33 @@ import { MatIconModule } from '@angular/material/icon';
     ::ng-deep .mat-dialog-container {
       padding: 0 !important;
       overflow: hidden !important;
+      border-radius: 12px !important;
     }
 
     ::ng-deep .cdk-overlay-pane {
       max-width: 95vw !important;
+    }
+
+    ::ng-deep .mat-dialog-content {
+      margin: 0 !important;
+      padding: 24px !important;
+    }
+
+    ::ng-deep .mat-mdc-dialog-container {
+      padding: 0 !important;
+    }
+
+    ::ng-deep .mat-mdc-dialog-surface {
+      padding: 0 !important;
+      border-radius: 12px !important;
+    }
+
+    ::ng-deep .mdc-dialog__surface {
+      padding: 0 !important;
+    }
+
+    ::ng-deep .mdc-dialog__container {
+      padding: 0 !important;
     }
   `]
 })
