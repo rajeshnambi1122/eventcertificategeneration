@@ -39,6 +39,13 @@ export class AdminComponent implements OnInit {
   imagePreview: string | null = null;
   selectedFile: File | null = null;
   minDate: string;
+  isLoadingRegistrations: boolean = false;
+  isLoadingEvents: boolean = false;
+  isLoadingStats: boolean = false;
+  isAddingEvent: boolean = false;
+  isUpdatingStatus: boolean = false;
+  isDeletingEvent: boolean = false;
+  loadingStatusIds: Set<string> = new Set();
 
   newEvent: any = {
     eventName: '',
@@ -71,21 +78,21 @@ export class AdminComponent implements OnInit {
   }
 
   loadRegistrations() {
+    this.isLoadingRegistrations = true;
     this.adminService.getRegistrations().subscribe({
       next: (response) => {
-        console.log('Raw registrations response:', response);
         if (response.status === 'OK' && response.message && response.message.content) {
-          console.log('Registrations loaded:', response.message.content);
           this.registrations = response.message.content;
           this.applyFilters();
         } else {
-          console.error('Unexpected registrations response structure:', response);
           this.registrations = [];
         }
+        this.isLoadingRegistrations = false;
       },
       error: (error) => {
         console.error('Error loading registrations:', error);
         this.registrations = [];
+        this.isLoadingRegistrations = false;
       }
     });
   }
@@ -142,14 +149,30 @@ export class AdminComponent implements OnInit {
   }
 
   updateStatus(id: string, status: 'approved' | 'rejected') {
+    this.loadingStatusIds.add(id);
+    
     this.adminService.updateRegistrationStatus(id, status).subscribe({
       next: (response) => {
-        console.log('Status updated successfully:', response);
-        this.loadRegistrations(); // Reload the list
+        const registration = this.registrations.find(r => r.id === id);
+        if (registration) {
+          registration.status = status;
+        }
+        this.loadingStatusIds.delete(id);
+        this.loadRegistrationStats();
       },
       error: (error) => {
         console.error('Error updating status:', error);
-        alert('Failed to update status');
+        this.loadingStatusIds.delete(id);
+        this.dialog.open(ConfirmDialogComponent, {
+          width: '400px',
+          maxWidth: '95vw',
+          panelClass: 'custom-dialog-container',
+          data: {
+            title: 'Error',
+            message: 'Failed to update registration status',
+            isError: true
+          }
+        });
       }
     });
   }
@@ -194,6 +217,7 @@ export class AdminComponent implements OnInit {
     };
 
     // Send to the API
+    this.isAddingEvent = true;
     this.adminService.addEvent(eventData).subscribe({
       next: (response) => {
         console.log('Event added successfully:', response);
@@ -208,10 +232,12 @@ export class AdminComponent implements OnInit {
           image: '',
           createdAt: ''
         };
+        this.isAddingEvent = false;
       },
       error: (error) => {
         console.error('Error adding event:', error);
         alert('Failed to add event');
+        this.isAddingEvent = false;
       },
     });
   }
@@ -231,20 +257,20 @@ export class AdminComponent implements OnInit {
   }
 
   loadEvents() {
+    this.isLoadingEvents = true;
     this.adminService.getEvents().subscribe({
       next: (response) => {
-        console.log('Raw API response:', response);
         if (response.status === 'OK' && response.message && response.message.content) {
-          console.log('Events loaded:', response.message.content);
           this.events = response.message.content;
         } else {
-          console.error('Unexpected response structure:', response);
           this.events = [];
         }
+        this.isLoadingEvents = false;
       },
       error: (error) => {
         console.error('Error loading events:', error);
         this.events = [];
+        this.isLoadingEvents = false;
       }
     });
   }
@@ -273,14 +299,17 @@ export class AdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.isDeletingEvent = true;
         this.adminService.removeEvent(id).subscribe({
           next: (response) => {
             console.log('Event deleted successfully:', response);
             this.loadEvents(); // Reload the events list
+            this.isDeletingEvent = false;
           },
           error: (error) => {
             console.error('Error deleting event:', error);
             alert('Failed to delete event');
+            this.isDeletingEvent = false;
           }
         });
       }
@@ -294,14 +323,17 @@ export class AdminComponent implements OnInit {
   }
 
   loadRegistrationStats() {
+    this.isLoadingStats = true;
     this.adminService.getRegistrationStats().subscribe({
       next: (response) => {
         if (response.status === 'OK' && response.message) {
           this.stats = response.message;
         }
+        this.isLoadingStats = false;
       },
       error: (error) => {
         console.error('Error loading registration stats:', error);
+        this.isLoadingStats = false;
       }
     });
   }

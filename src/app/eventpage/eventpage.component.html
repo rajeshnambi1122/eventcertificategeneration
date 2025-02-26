@@ -166,7 +166,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: transparent;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -189,21 +189,20 @@
   </head>
   <body>
     <div class="events-container">
-      <div *ngIf="isLoading" class="loading-spinner">
-        <div class="spinner"></div>
-      </div>
-      
-      <div *ngIf="!isLoading" class="events-grid">
-        <div class="events-section">
-          <h2>Events</h2>
-          <div class="event-container">
-            <div class="event-card" *ngFor="let event of events" (click)="navigateToForm(event.eventName)">
-              <div class="event-content">
-                <h3>{{event.eventName}}</h3>
-                <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
-                <p>{{event.message}}</p>
-                <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
-              </div>
+      <div class="events-section">
+        <h2>Events</h2>
+        
+        <div *ngIf="isLoading" class="loading-spinner">
+          <div class="spinner"></div>
+        </div>
+        
+        <div *ngIf="!isLoading" class="event-container">
+          <div class="event-card" *ngFor="let event of events" (click)="navigateToForm(event.eventName)">
+            <div class="event-content">
+              <h3>{{event.eventName}}</h3>
+              <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
+              <p>{{event.message}}</p>
+              <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
             </div>
           </div>
         </div>

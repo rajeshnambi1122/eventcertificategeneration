@@ -93,7 +93,11 @@
         </div>
       </div>
 
-      <div class="registrations-grid">
+      <div *ngIf="isLoadingRegistrations" class="loading-spinner">
+        <div class="spinner"></div>
+      </div>
+
+      <div *ngIf="!isLoadingRegistrations" class="registrations-grid">
         <div
           class="registration-card"
           *ngFor="let registration of paginatedRegistrations"
@@ -114,18 +118,24 @@
          
           </div>
           <div class="action-buttons" *ngIf="registration.status === 'pending'">
-            <button
-              class="approve"
-              (click)="updateStatus(registration.id, 'approved')"
-            >
-              Approve
-            </button>
-            <button
-              class="reject"
-              (click)="updateStatus(registration.id, 'rejected')"
-            >
-              Reject
-            </button>
+            <div *ngIf="loadingStatusIds.has(registration.id)" class="button-spinner">
+              <div class="spinner"></div>
+            </div>
+            
+            <ng-container *ngIf="!loadingStatusIds.has(registration.id)">
+              <button
+                class="approve"
+                (click)="updateStatus(registration.id, 'approved')"
+              >
+                Approve
+              </button>
+              <button
+                class="reject"
+                (click)="updateStatus(registration.id, 'rejected')"
+              >
+                Reject
+              </button>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -256,7 +266,11 @@
         </form>
       </div>
 
-      <div class="events-grid">
+      <div *ngIf="isLoadingEvents" class="loading-spinner">
+        <div class="spinner"></div>
+      </div>
+
+      <div *ngIf="!isLoadingEvents" class="events-grid">
         <div class="event-card" *ngFor="let event of events">
           <div class="event-image">
             <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
