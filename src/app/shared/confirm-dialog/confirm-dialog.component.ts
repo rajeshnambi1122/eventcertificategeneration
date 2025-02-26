@@ -49,8 +49,10 @@ import { MatIconModule } from '@angular/material/icon';
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      min-width: 320px;
+      width: 100%;
       max-width: 400px;
+      margin: 0;
+      box-sizing: border-box;
     }
 
     .dialog-header {
@@ -77,6 +79,7 @@ import { MatIconModule } from '@angular/material/icon';
       margin: 0;
       font-size: 18px;
       font-weight: 500;
+      word-break: break-word;
     }
 
     .dialog-content {
@@ -88,6 +91,7 @@ import { MatIconModule } from '@angular/material/icon';
 
     .dialog-content p {
       margin: 0;
+      word-break: break-word;
     }
 
     .dialog-actions {
@@ -136,19 +140,38 @@ import { MatIconModule } from '@angular/material/icon';
 
     @media (max-width: 480px) {
       .dialog-container {
-        width: 100%;
-        max-width: none;
+        width: auto;
+        min-width: 280px;
         margin: 16px;
       }
 
+      .dialog-header {
+        padding: 16px;
+      }
+
+      .dialog-content {
+        padding: 16px;
+      }
+
       .dialog-actions {
+        padding: 16px;
         flex-direction: column;
       }
 
       button {
         width: 100%;
         justify-content: center;
+        margin: 0;
       }
+    }
+
+    ::ng-deep .mat-dialog-container {
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    ::ng-deep .cdk-overlay-pane {
+      max-width: 95vw !important;
     }
   `]
 })
