@@ -44,7 +44,7 @@ export class FormComponent implements OnInit {
       // Get event ID for the selected event type
       this.adminService.getEvents().subscribe((events) => {
         const selectedEvent = events.find(
-          (event) => event.name === this.eventType
+          (event: { eventName: string }) => event.eventName === this.eventType
         );
         if (selectedEvent) {
           this.registrationData.eventName = selectedEvent.id;
@@ -76,8 +76,35 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    // Ensure year is a number
-    this.registrationData.year = Number(this.registrationData.year);
+    // Check if all required fields are filled
+    if (!this.registrationData.studentName || 
+        !this.registrationData.college ||
+        !this.registrationData.department ||
+        !this.registrationData.year ||
+        !this.registrationData.email ||
+        !this.registrationData.dob) {
+      
+      this.dialog.open(ConfirmDialogComponent, {
+        width: '400px',
+        data: {
+          title: 'Required Fields',
+          message: 'Please fill in all required fields before submitting.',
+          isError: true
+        }
+      });
+      return;
+    }
+
+    // If all fields are filled, proceed with form submission
+    const formattedData = {
+      eventName: this.eventType,
+      studentName: this.registrationData.studentName,
+      collegeName: this.registrationData.college,
+      department: this.registrationData.department,
+      year: this.registrationData.year.toString(),
+      email: this.registrationData.email,
+      dob: this.registrationData.dob
+    };
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
@@ -90,8 +117,9 @@ export class FormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.registrationService.submitRegistration(this.registrationData).subscribe({
+        this.registrationService.submitRegistration(formattedData).subscribe({
           next: (response) => {
+            console.log('Registration successful:', response);
             this.dialog.open(ConfirmDialogComponent, {
               width: '400px',
               data: {

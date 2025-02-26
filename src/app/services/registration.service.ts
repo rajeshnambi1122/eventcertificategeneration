@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 interface RegistrationRequest {
   eventName: string;
   studentName: string;
-  college: string;
+  collegeName: string;
   department: string;
-  year: number;
+  year: string;
   email: string;
   dob: string;
 }
@@ -16,7 +16,7 @@ interface RegistrationRequest {
   providedIn: 'root',
 })
 export class RegistrationService {
-  private apiUrl = 'http://localhost:8080/api'; // Change to your dev API URL
+  private apiUrl = 'https://tothefuture-production.up.railway.app/api';
 
   constructor(private http: HttpClient) {}
 

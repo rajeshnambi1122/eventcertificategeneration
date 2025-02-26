@@ -6,6 +6,14 @@ import { AdminService } from '../services/admin.service';
 import { Event, Registration } from '../interfaces/event.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
+interface RegistrationStats {
+  totalParticipants: number;
+  approvedStatus: number;
+  pendingStatus: number;
+  rejectedStatus: number;
+}
 
 @Component({
   selector: 'app-admin',
@@ -31,27 +39,50 @@ export class AdminComponent implements OnInit {
   imagePreview: string | null = null;
   selectedFile: File | null = null;
 
-  newEvent: Omit<Event, 'id' | 'status'> = {
-    name: '',
-    description: '',
+  newEvent: any = {
+    eventName: '',
+    eventCoordinator: '',
+    message: '',
     image: '',
-    date: '',
+    createdAt: ''
+  };
+
+  stats: RegistrationStats = {
+    totalParticipants: 0,
+    approvedStatus: 0,
+    pendingStatus: 0,
+    rejectedStatus: 0
   };
 
   constructor(
     private adminService: AdminService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
     this.loadRegistrations();
     this.loadEvents();
+    this.loadRegistrationStats();
   }
 
   loadRegistrations() {
-    this.adminService.getRegistrations().subscribe((data) => {
-      this.registrations = data;
-      this.applyFilters();
+    this.adminService.getRegistrations().subscribe({
+      next: (response) => {
+        console.log('Raw registrations response:', response);
+        if (response.status === 'OK' && response.message && response.message.content) {
+          console.log('Registrations loaded:', response.message.content);
+          this.registrations = response.message.content;
+          this.applyFilters();
+        } else {
+          console.error('Unexpected registrations response structure:', response);
+          this.registrations = [];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading registrations:', error);
+        this.registrations = [];
+      }
     });
   }
 
@@ -63,7 +94,7 @@ export class AdminComponent implements OnInit {
       filtered = filtered.filter(
         (reg) =>
           reg.studentName.toLowerCase().includes(search) ||
-          reg.college.toLowerCase().includes(search) ||
+          reg.collegeName.toLowerCase().includes(search) ||
           reg.department.toLowerCase().includes(search)
       );
     }
@@ -107,13 +138,16 @@ export class AdminComponent implements OnInit {
   }
 
   updateStatus(id: string, status: 'approved' | 'rejected') {
-    this.adminService
-      .updateRegistrationStatus(id, status)
-      .subscribe((success) => {
-        if (success) {
-          this.loadRegistrations();
-        }
-      });
+    this.adminService.updateRegistrationStatus(id, status).subscribe({
+      next: (response) => {
+        console.log('Status updated successfully:', response);
+        this.loadRegistrations(); // Reload the list
+      },
+      error: (error) => {
+        console.error('Error updating status:', error);
+        alert('Failed to update status');
+      }
+    });
   }
 
   onFileSelected(event: any) {
@@ -143,12 +177,33 @@ export class AdminComponent implements OnInit {
       return;
     }
 
-    // Now sending JSON instead of FormData
-    this.adminService.addEvent(this.newEvent).subscribe({
+    // Format the date to match API requirements (YYYY-MM-DD)
+    const formattedDate = new Date(this.newEvent.createdAt).toISOString().split('T')[0];
+
+    // Format the event data according to the API requirements
+    const eventData = {
+      eventName: this.newEvent.eventName,
+      eventCoordinator: this.newEvent.eventCoordinator,
+      message: this.newEvent.message,
+      image: this.newEvent.image,
+      createdAt: formattedDate
+    };
+
+    // Send to the API
+    this.adminService.addEvent(eventData).subscribe({
       next: (response) => {
+        console.log('Event added successfully:', response);
         this.events.push(response);
         this.showAddEventForm = false;
         this.removeImage();
+        // Reset form
+        this.newEvent = {
+          eventName: '',
+          eventCoordinator: '',
+          message: '',
+          image: '',
+          createdAt: ''
+        };
       },
       error: (error) => {
         console.error('Error adding event:', error);
@@ -172,8 +227,21 @@ export class AdminComponent implements OnInit {
   }
 
   loadEvents() {
-    this.adminService.getEvents().subscribe((data) => {
-      this.events = data;
+    this.adminService.getEvents().subscribe({
+      next: (response) => {
+        console.log('Raw API response:', response);
+        if (response.status === 'OK' && response.message && response.message.content) {
+          console.log('Events loaded:', response.message.content);
+          this.events = response.message.content;
+        } else {
+          console.error('Unexpected response structure:', response);
+          this.events = [];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading events:', error);
+        this.events = [];
+      }
     });
   }
 
@@ -201,11 +269,35 @@ export class AdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.adminService.removeEvent(id).subscribe((success) => {
-          if (success) {
-            this.loadEvents();
+        this.adminService.removeEvent(id).subscribe({
+          next: (response) => {
+            console.log('Event deleted successfully:', response);
+            this.loadEvents(); // Reload the events list
+          },
+          error: (error) => {
+            console.error('Error deleting event:', error);
+            alert('Failed to delete event');
           }
         });
+      }
+    });
+  }
+
+  getImageUrl(base64String: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(
+      'data:image/jpeg;base64,' + base64String
+    );
+  }
+
+  loadRegistrationStats() {
+    this.adminService.getRegistrationStats().subscribe({
+      next: (response) => {
+        if (response.status === 'OK' && response.message) {
+          this.stats = response.message;
+        }
+      },
+      error: (error) => {
+        console.error('Error loading registration stats:', error);
       }
     });
   }

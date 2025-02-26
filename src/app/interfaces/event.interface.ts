@@ -1,22 +1,22 @@
 export interface Event {
   id: string;
-  name: string;
-  description: string;
+  eventName: string;
+  eventCoordinator: string;
+  message: string;
   image: string;
-  date: string;
-  status: 'active' | 'inactive';
+  createdAt: string;
 }
 
 export interface Registration {
   id: string;
   eventId: string;
-  studentName: string;
   eventName: string;
-  college: string;
+  studentName: string;
+  collegeName: string;
   department: string;
-  year: number;
   email: string;
   dob: string;
-  registrationDate: string;
+  year: string;
   status: 'pending' | 'approved' | 'rejected';
+  registrationDate: string;
 }

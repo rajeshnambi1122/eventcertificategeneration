@@ -51,19 +51,14 @@
             class="filter-select"
           >
             <option value="all">All Events</option>
-            <option *ngFor="let event of events" [value]="event.name">
-              {{ event.name }}
+            <option *ngFor="let event of events" [value]="event.eventName">
+              {{ event.eventName }}
             </option>
           </select>
         </div>
 
         <div class="sort-controls">
-          <button (click)="toggleSort('date')" class="sort-btn">
-            Date
-            {{
-              sortField === "date" ? (sortDirection === "asc" ? "↑" : "↓") : ""
-            }}
-          </button>
+         
           <button (click)="toggleSort('name')" class="sort-btn">
             Name
             {{
@@ -111,13 +106,12 @@
           </div>
           <div class="card-content">
             <p><strong>Event:</strong> {{ registration.eventName }}</p>
-            <p><strong>College:</strong> {{ registration.college }}</p>
+            <p><strong>College:</strong> {{ registration.collegeName }}</p>
             <p><strong>Department:</strong> {{ registration.department }}</p>
             <p><strong>Year:</strong> {{ registration.year }}</p>
-            <p>
-              <strong>Date:</strong>
-              {{ registration.registrationDate | date : "medium" }}
-            </p>
+            <p><strong>Email:</strong> {{ registration.email }}</p>
+            <p><strong>Date of Birth:</strong> {{ registration.dob | date:'mediumDate' }}</p>
+         
           </div>
           <div class="action-buttons" *ngIf="registration.status === 'pending'">
             <button
@@ -174,19 +168,20 @@
             <input
               type="text"
               id="eventName"
-              [(ngModel)]="newEvent.name"
-              name="name"
+              [(ngModel)]="newEvent.eventName"
+              name="eventName"
               required
               placeholder="Enter event name"
             />
           </div>
 
           <div class="form-group">
-            <label for="eventName">Coordinator</label>
+            <label for="coordinator">Coordinator</label>
             <input
               type="text"
-              id="Coordinator"
-              name="name"
+              id="coordinator"
+              [(ngModel)]="newEvent.eventCoordinator"
+              name="eventCoordinator"
               required
               placeholder="Enter Coordinator's Name"
             />
@@ -196,8 +191,8 @@
             <label for="description">Description</label>
             <textarea
               id="description"
-              [(ngModel)]="newEvent.description"
-              name="description"
+              [(ngModel)]="newEvent.message"
+              name="message"
               required
               placeholder="Enter event description"
               rows="4"
@@ -209,8 +204,8 @@
             <input
               type="date"
               id="date"
-              [(ngModel)]="newEvent.date"
-              name="date"
+              [(ngModel)]="newEvent.createdAt"
+              name="createdAt"
               required
             />
           </div>
@@ -263,21 +258,16 @@
       <div class="events-grid">
         <div class="event-card" *ngFor="let event of events">
           <div class="event-image">
-            <img [src]="event.image" [alt]="event.name" />
-            <div
-              class="event-status"
-              [class.active]="event.status === 'active'"
-            >
-              {{ event.status }}
-            </div>
+            <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
           </div>
           <div class="event-details">
-            <h3>{{ event.name }}</h3>
-            <p class="event-description">{{ event.description }}</p>
+            <h3>{{ event.eventName }}</h3>
+            <p class="event-description">{{ event.message }}</p>
             <p class="event-date">
               <i class="fas fa-calendar"></i>
-              {{ event.date | date }}
+              {{ event.createdAt | date }}
             </p>
+            <p class="coordinator">Coordinator: {{ event.eventCoordinator }}</p>
             <button class="remove-btn" (click)="removeEvent(event.id)">
               <i class="fas fa-trash"></i> Remove Event
             </button>

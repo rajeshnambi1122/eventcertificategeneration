@@ -7,69 +7,34 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AdminService {
-  private dummyEvents: Event[] = [
-    {
-      id: '1',
-      name: 'HACKATHON',
-      description: 'Showcase your coding skills and innovative solutions',
-      image: 'assets/images/HACKATHON.jpg',
-      date: '2024-04-15',
-      status: 'active',
-    },
-    // Add other events...
-  ];
-
-  private dummyRegistrations: Registration[] = [
-    {
-      id: '1',
-      eventId: '1',
-      eventName: 'HACKATHON',
-      studentName: 'John Doe',
-      college: 'SREC',
-      department: 'Computer Science',
-      email: 'john@example.com',
-      dob: '2000-01-01',
-      year: 3,
-      status: 'pending',
-      registrationDate: new Date().toISOString(),
-    },
-    // Add more dummy registrations...
-  ];
-
-  private apiUrl = 'your-api-url';
+  private apiUrl = 'https://tothefuture-production.up.railway.app/api';
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<Event[]> {
-    return of(this.dummyEvents);
+  getEvents(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/events`);
   }
 
-  getRegistrations(): Observable<Registration[]> {
-    return of(this.dummyRegistrations);
+  getRegistrations(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/registrations`);
   }
 
   updateRegistrationStatus(
     id: string,
     status: 'approved' | 'rejected'
-  ): Observable<boolean> {
-    const registration = this.dummyRegistrations.find((r) => r.id === id);
-    if (registration) {
-      registration.status = status;
-      return of(true);
-    }
-    return of(false);
+  ): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/registrations/${id}/status?status=${status}`, {});
   }
 
-  addEvent(event: Omit<Event, 'id' | 'status'>): Observable<Event> {
-    return this.http.post<Event>(`${this.apiUrl}/events`, event);
+  addEvent(event: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/events`, event);
   }
 
-  removeEvent(id: string): Observable<boolean> {
-    const index = this.dummyEvents.findIndex((e) => e.id === id);
-    if (index !== -1) {
-      this.dummyEvents.splice(index, 1);
-      return of(true);
-    }
-    return of(false);
+  removeEvent(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/events/${id}`);
+  }
+
+  getRegistrationStats(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/registrations/status`);
   }
 }
