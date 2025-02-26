@@ -38,6 +38,7 @@ export class AdminComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'desc';
   imagePreview: string | null = null;
   selectedFile: File | null = null;
+  minDate: string;
 
   newEvent: any = {
     eventName: '',
@@ -58,7 +59,10 @@ export class AdminComponent implements OnInit {
     private adminService: AdminService,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer
-  ) {}
+  ) {
+    // Set min date to today
+    this.minDate = new Date().toISOString().split('T')[0];
+  }
 
   ngOnInit() {
     this.loadRegistrations();

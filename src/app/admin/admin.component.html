@@ -203,9 +203,10 @@
             <label for="date">Event Date</label>
             <input
               type="date"
-              id="date"
-              [(ngModel)]="newEvent.createdAt"
+              id="createdAt"
               name="createdAt"
+              [(ngModel)]="newEvent.createdAt"
+              [min]="minDate"
               required
             />
           </div>
