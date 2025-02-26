@@ -104,11 +104,13 @@
         >
           <div class="card-header">
             <h3>{{ registration.studentName }}</h3>
+           
             <span class="status-badge" [class]="registration.status">
               {{ registration.status }}
             </span>
+            
           </div>
-          <div class="card-content">
+          <div style="margin-top: 20px;" class="card-content">
             <p><strong>Event:</strong> {{ registration.eventName }}</p>
             <p><strong>College:</strong> {{ registration.collegeName }}</p>
             <p><strong>Department:</strong> {{ registration.department }}</p>
