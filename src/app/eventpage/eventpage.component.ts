@@ -24,6 +24,7 @@ interface Event {
 })
 export class EventpageComponent implements OnInit {
   events: Event[] = [];
+  isLoading: boolean = true;
 
   constructor(
     private router: Router,
@@ -32,14 +33,17 @@ export class EventpageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.eventService.getEvents().subscribe(
       (response) => {
         if (response.status === 'OK') {
           this.events = response.message.content;
         }
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching events:', error);
+        this.isLoading = false;
       }
     );
   }

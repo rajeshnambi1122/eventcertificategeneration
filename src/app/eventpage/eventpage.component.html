@@ -159,18 +159,52 @@
           margin: 1rem;
         }
       }
+
+      .loading-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
     </style>
   </head>
   <body>
-    <div class="events-section">
-      <h2>Events</h2>
-      <div class="event-container">
-        <div class="event-card" *ngFor="let event of events" (click)="navigateToForm(event.eventName)">
-          <div class="event-content">
-            <h3>{{event.eventName}}</h3>
-            <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
-            <p>{{event.message}}</p>
-            <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
+    <div class="events-container">
+      <div *ngIf="isLoading" class="loading-spinner">
+        <div class="spinner"></div>
+      </div>
+      
+      <div *ngIf="!isLoading" class="events-grid">
+        <div class="events-section">
+          <h2>Events</h2>
+          <div class="event-container">
+            <div class="event-card" *ngFor="let event of events" (click)="navigateToForm(event.eventName)">
+              <div class="event-content">
+                <h3>{{event.eventName}}</h3>
+                <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
+                <p>{{event.message}}</p>
+                <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
