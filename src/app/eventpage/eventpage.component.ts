@@ -1,14 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EventService } from '../services/event.service';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
+interface Event {
+  id: number;
+  eventName: string;
+  eventCoordinator: string;
+  message: string;
+  image: string;
+  createdAt: string;
+}
 
 @Component({
   selector: 'app-eventpage',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule],
+  providers: [EventService],
   templateUrl: './eventpage.component.html',
   styleUrl: './eventpage.component.css',
 })
-export class EventpageComponent {
-  constructor(private router: Router) {}
+export class EventpageComponent implements OnInit {
+  events: Event[] = [];
+
+  constructor(
+    private router: Router,
+    private eventService: EventService,
+    private sanitizer: DomSanitizer
+  ) {}
+
+  ngOnInit() {
+    this.eventService.getEvents().subscribe(
+      (response) => {
+        if (response.status === 'OK') {
+          this.events = response.message.content;
+        }
+      },
+      (error) => {
+        console.error('Error fetching events:', error);
+      }
+    );
+  }
+
+  getImageUrl(base64String: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(
+      'data:image/jpeg;base64,' + base64String
+    );
+  }
 
   navigateToForm(eventType: string) {
     this.router.navigate(['/form'], {

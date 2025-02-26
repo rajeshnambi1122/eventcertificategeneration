@@ -163,48 +163,14 @@
   </head>
   <body>
     <div class="events-section">
-      <h2>Technical Events</h2>
+      <h2>Events</h2>
       <div class="event-container">
-        <div class="event-card" (click)="navigateToForm('HACKATHON')">
+        <div class="event-card" *ngFor="let event of events" (click)="navigateToForm(event.eventName)">
           <div class="event-content">
-            <h3>HACKATHON</h3>
-            <img src="assets/images/HACKATHON.jpg" alt="Hackathon" />
-            <p>Showcase your coding skills and innovative solutions</p>
-          </div>
-        </div>
-
-        <div class="event-card" (click)="navigateToForm('MASTERCLASS')">
-          <div class="event-content">
-            <h3>MASTERCLASS</h3>
-            <img src="assets/images/MASTERCLASS.jpg" alt="Masterclass" />
-            <p>Learn from industry experts and enhance your knowledge</p>
-          </div>
-        </div>
-
-        <div class="event-card" (click)="navigateToForm('NON TECH EVENTS')">
-          <div class="event-content">
-            <h3>NON TECH EVENTS</h3>
-            <img src="assets/images/NON-TECH.jpg" alt="Non-Tech Events" />
-            <p>Participate in exciting non-technical activities</p>
-          </div>
-        </div>
-
-        <div class="event-card" (click)="navigateToForm('PAPER PRESENTATION')">
-          <div class="event-content">
-            <h3>PAPER PRESENTATION</h3>
-            <img
-              src="assets/images/PAPER PRESENTATION.png"
-              alt="Paper Presentation"
-            />
-            <p>Present your research and innovative ideas</p>
-          </div>
-        </div>
-
-        <div class="event-card" (click)="navigateToForm('PROJECT EXPO')">
-          <div class="event-content">
-            <h3>PROJECT EXPO</h3>
-            <img src="assets/images/project-expo.png" alt="Project Expo" />
-            <p>Showcase your projects and technical expertise</p>
+            <h3>{{event.eventName}}</h3>
+            <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
+            <p>{{event.message}}</p>
+            <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
           </div>
         </div>
       </div>

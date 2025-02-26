@@ -20,11 +20,14 @@ export class AdminLoginComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   login() {
-    if (this.authService.login(this.username, this.password)) {
-      this.router.navigate(['/admin']);
-    } else {
-      this.errorMessage = 'Invalid credentials';
-    }
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        this.router.navigate(['/admin']);
+      },
+      error: () => {
+        this.errorMessage = 'Invalid credentials';
+      }
+    });
   }
 
   togglePassword() {

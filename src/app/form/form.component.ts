@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from '../services/registration.service';
 import { AdminService } from '../services/admin.service';
+import { AuthService } from '../services/auth.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
@@ -12,7 +13,7 @@ import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.
   selector: 'app-form',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule, MatDialogModule],
-  providers: [RegistrationService, AdminService],
+  providers: [RegistrationService, AdminService, AuthService],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
 })
@@ -32,6 +33,7 @@ export class FormComponent implements OnInit {
     private route: ActivatedRoute,
     private registrationService: RegistrationService,
     private adminService: AdminService,
+    private authService: AuthService,
     private dialog: MatDialog
   ) {}
 
@@ -55,6 +57,22 @@ export class FormComponent implements OnInit {
     img.onload = () => console.log('Image loaded successfully');
     img.onerror = () => console.error('Image failed to load');
     img.src = './assets/images/snr-logo.png';
+  }
+
+  login() {
+    const userName = 'admin'; // Replace with actual input if needed
+    const passWord = 'admin@123'; // Replace with actual input if needed
+
+    this.authService.login(userName, passWord).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+        // Handle successful login (e.g., navigate to another page)
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+        // Handle login error (e.g., show a dialog)
+      }
+    });
   }
 
   onSubmit() {

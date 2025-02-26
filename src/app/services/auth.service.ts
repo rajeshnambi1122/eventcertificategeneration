@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  private isAuthenticated = false;
+  private apiUrl = 'https://tothefuture-production.up.railway.app/api/auth/login';
 
-  login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'admin123') {
-      this.isAuthenticated = true;
-      return true;
-    }
-    return false;
+  constructor(private http: HttpClient) {}
+
+  login(userName: string, passWord: string): Observable<any> {
+    return this.http.post(this.apiUrl, { userName, passWord });
   }
 
   logout(): void {
-    this.isAuthenticated = false;
+    // Implementation needed
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    // Implementation needed
+    return false;
   }
 }
