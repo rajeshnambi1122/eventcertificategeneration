@@ -85,8 +85,9 @@ export class FormComponent implements OnInit {
   private openDialog(config: any) {
     const isMobile = window.innerWidth < 480;
     return this.dialog.open(ConfirmDialogComponent, {
-      width: isMobile ? '100vw' : '400px',
-      maxWidth: '100vw',
+      width: '400px',
+      maxWidth: isMobile ? '100%' : '90vw',
+      position: isMobile ? { bottom: '0' } : undefined,
       panelClass: ['custom-dialog-container', isMobile ? 'mobile-dialog' : ''],
       ...config
     });

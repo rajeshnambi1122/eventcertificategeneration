@@ -59,7 +59,7 @@ import { CommonModule } from '@angular/common';
       overflow: hidden;
       width: 100%;
       max-width: 400px;
-      margin: 0;
+      margin: 0 auto;
       box-sizing: border-box;
     }
 
@@ -195,12 +195,17 @@ import { CommonModule } from '@angular/common';
     }
 
     ::ng-deep .cdk-overlay-pane {
-      max-width: 100vw !important;
-      width: 100% !important;
-      margin: 0 !important;
+      max-width: 90vw !important;
     }
 
     @media (max-width: 480px) {
+      .dialog-container {
+        width: 100%;
+        min-width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
       ::ng-deep .mat-dialog-container {
         border-radius: 0 !important;
       }
