@@ -48,7 +48,7 @@ import { CommonModule } from '@angular/common';
       </div>
       
       <div class="loading-container" *ngIf="data.loading">
-        <mat-spinner diameter="40"></mat-spinner>
+        <mat-spinner diameter="40" class="custom-spinner"></mat-spinner>
       </div>
     </div>
   `,
@@ -238,6 +238,14 @@ import { CommonModule } from '@angular/common';
       ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
         width: 100% !important;
       }
+    }
+
+    ::ng-deep .custom-spinner circle {
+      stroke: #1a237e !important;
+    }
+
+    ::ng-deep .mat-mdc-progress-spinner {
+      --mdc-circular-progress-active-indicator-color: #1a237e;
     }
   `]
 })
