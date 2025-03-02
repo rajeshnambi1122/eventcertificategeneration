@@ -82,6 +82,16 @@ export class FormComponent implements OnInit {
     });
   }
 
+  private openDialog(config: any) {
+    const isMobile = window.innerWidth < 480;
+    return this.dialog.open(ConfirmDialogComponent, {
+      width: isMobile ? '100vw' : '400px',
+      maxWidth: '100vw',
+      panelClass: ['custom-dialog-container', isMobile ? 'mobile-dialog' : ''],
+      ...config
+    });
+  }
+
   onSubmit() {
     // Check if all required fields are filled
     if (!this.registrationData.studentName || 
@@ -91,14 +101,12 @@ export class FormComponent implements OnInit {
         !this.registrationData.email ||
         !this.registrationData.dob) {
       
-      this.dialog.open(ConfirmDialogComponent, {
-        width: '400px',
-        maxWidth: '95vw',
-        panelClass: 'custom-dialog-container',
+      this.openDialog({
         data: {
           title: 'Required Fields',
           message: 'Please fill in all required fields before submitting.',
-          isError: true
+          isError: true,
+          loading: false
         }
       });
       return;
@@ -115,57 +123,64 @@ export class FormComponent implements OnInit {
       dob: this.registrationData.dob
     };
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '400px',
-      maxWidth: '95vw',
-      panelClass: 'custom-dialog-container',
+    const dialogRef = this.openDialog({
+      disableClose: true,
       data: {
         title: 'Confirm Registration',
         message: 'Please check if all the information is correct before proceeding.',
-        isError: false
+        isError: false,
+        loading: false
       }
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
+        const loadingDialogRef = this.openDialog({
+          disableClose: true,
+          data: {
+            title: 'Processing',
+            message: 'Please wait while we process your registration...',
+            isError: false,
+            loading: true
+          }
+        });
+        
         this.registrationService.submitRegistration(formattedData).subscribe({
           next: (response) => {
+            loadingDialogRef.close();
+            
             if (response.status === 'ALREADY_REPORTED') {
-              this.dialog.open(ConfirmDialogComponent, {
-                width: '400px',
-                maxWidth: '95vw',
-                panelClass: 'custom-dialog-container',
+              this.openDialog({
                 data: {
                   title: 'Already Registered',
                   message: response.message || 'You have already registered for this event.',
-                  isError: true
+                  isError: true,
+                  loading: false
                 }
               });
               return;
             }
 
             console.log('Registration successful:', response);
-            this.dialog.open(ConfirmDialogComponent, {
-              width: '400px',
-              maxWidth: '95vw',
-              panelClass: 'custom-dialog-container',
+            this.openDialog({
               data: {
                 title: 'Success',
                 message: 'Registration successful!',
-                isError: false
+                isError: false,
+                loading: false
               }
             });
           },
           error: (error) => {
+            loadingDialogRef.close();
+            
             console.error('Registration failed:', error);
-            this.dialog.open(ConfirmDialogComponent, {
-              width: '400px',
-              maxWidth: '95vw',
-              panelClass: 'custom-dialog-container',
+            this.openDialog({
               data: {
                 title: 'Error',
                 message: error.error?.message || 'Registration failed. Please try again.',
-                isError: true
+                isError: true,
+                loading: false
               }
             });
           },

@@ -2,17 +2,19 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   template: `
     <div class="dialog-container">
       <div class="dialog-header" [class.error-header]="data.isError">
         <div class="header-content">
           <span class="material-icons header-icon">
-            {{ data.isError ? 'error_outline' : 'help_outline' }}
+            {{ data.isError ? 'error_outline' : (data.loading ? 'hourglass_empty' : 'help_outline') }}
           </span>
           <h2>{{ data.title }}</h2>
         </div>
@@ -22,11 +24,12 @@ import { MatIconModule } from '@angular/material/icon';
         <p>{{ data.message }}</p>
       </div>
 
-      <div class="dialog-actions">
+      <div class="dialog-actions" *ngIf="!data.loading">
         <button 
           *ngIf="!data.isError"
           class="btn-secondary" 
           [mat-dialog-close]="false"
+          [disabled]="data.loading"
         >
           <span class="material-icons">close</span>
           Cancel
@@ -35,12 +38,17 @@ import { MatIconModule } from '@angular/material/icon';
           class="btn-primary" 
           [class.btn-error]="data.isError"
           [mat-dialog-close]="true"
+          [disabled]="data.loading"
         >
           <span class="material-icons">
             {{ data.isError ? 'close' : 'check' }}
           </span>
           {{ data.isError ? 'Close' : 'Confirm' }}
         </button>
+      </div>
+      
+      <div class="loading-container" *ngIf="data.loading">
+        <mat-spinner diameter="40"></mat-spinner>
       </div>
     </div>
   `,
@@ -102,6 +110,13 @@ import { MatIconModule } from '@angular/material/icon';
       border-top: 1px solid #eee;
     }
 
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      border-top: 1px solid #eee;
+    }
+
     button {
       display: flex;
       align-items: center;
@@ -134,19 +149,27 @@ import { MatIconModule } from '@angular/material/icon';
       transform: translateY(-1px);
     }
 
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .material-icons {
       font-size: 20px;
     }
 
     @media (max-width: 480px) {
       .dialog-container {
-        width: auto;
-        min-width: 280px;
-        margin: 16px;
+        width: 100%;
+        min-width: 100%;
+        margin: 0;
+        border-radius: 0;
       }
 
       .dialog-header {
         padding: 16px;
+        border-radius: 0;
       }
 
       .dialog-content {
@@ -172,35 +195,55 @@ import { MatIconModule } from '@angular/material/icon';
     }
 
     ::ng-deep .cdk-overlay-pane {
-      max-width: 95vw !important;
-    }
-
-    ::ng-deep .mat-dialog-content {
+      max-width: 100vw !important;
+      width: 100% !important;
       margin: 0 !important;
-      padding: 24px !important;
     }
 
-    ::ng-deep .mat-mdc-dialog-container {
-      padding: 0 !important;
-    }
+    @media (max-width: 480px) {
+      ::ng-deep .mat-dialog-container {
+        border-radius: 0 !important;
+      }
 
-    ::ng-deep .mat-mdc-dialog-surface {
-      padding: 0 !important;
-      border-radius: 12px !important;
-    }
+      ::ng-deep .mat-mdc-dialog-surface {
+        border-radius: 0 !important;
+      }
 
-    ::ng-deep .mdc-dialog__surface {
-      padding: 0 !important;
-    }
+      ::ng-deep .mdc-dialog__surface {
+        border-radius: 0 !important;
+      }
 
-    ::ng-deep .mdc-dialog__container {
-      padding: 0 !important;
+      ::ng-deep .mat-mdc-dialog-container {
+        --mdc-dialog-container-shape: 0px !important;
+      }
+
+      ::ng-deep .mat-dialog-content {
+        padding: 16px !important;
+      }
+
+      ::ng-deep .cdk-overlay-pane {
+        max-width: 100vw !important;
+        width: 100% !important;
+        margin: 0 !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+      }
+
+      ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+        width: 100% !important;
+      }
     }
   `]
 })
 export class ConfirmDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { title: string, message: string, isError: boolean }
+    @Inject(MAT_DIALOG_DATA) public data: { 
+      title: string, 
+      message: string, 
+      isError: boolean,
+      loading?: boolean 
+    }
   ) {}
 }
