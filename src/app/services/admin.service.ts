@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'https://tothefuture-production.up.railway.app/api';
+  private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api';
 
   constructor(private http: HttpClient) {}
 

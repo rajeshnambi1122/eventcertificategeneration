@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'https://tothefuture-production.up.railway.app/api/events';
+  private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api/events';
 
   constructor(private http: HttpClient) {}
 
