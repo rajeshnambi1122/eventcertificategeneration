@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api/auth/login';
+  private apiUrl = 'https://snreventmanagement-btfbc9brepeweabh.northeurope-01.azurewebsites.net/api/auth/login';
+  //private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api/auth/login';
 
   constructor(private http: HttpClient) {}
 
