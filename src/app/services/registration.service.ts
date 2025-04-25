@@ -16,7 +16,8 @@ interface RegistrationRequest {
   providedIn: 'root',
 })
 export class RegistrationService {
-  private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api';
+  private apiUrl = 'https://snreventmanagement-btfbc9brepeweabh.northeurope-01.azurewebsites.net/api';
+  //private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api';
 
   constructor(private http: HttpClient) {}
 
