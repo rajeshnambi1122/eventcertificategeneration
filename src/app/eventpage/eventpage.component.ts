@@ -32,12 +32,18 @@ export class EventpageComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {}
 
-  ngOnInit() {
+ ngOnInit() {
     this.isLoading = true;
     this.eventService.getEvents().subscribe(
       (response) => {
         if (response.status === 'OK') {
-          this.events = response.message.content;
+          // Sort the events based on 'createdAt' in descending order
+          this.events = response.message.content.sort((a: Event, b: Event) => {
+            // Convert 'createdAt' strings to Date objects
+            const dateA = new Date(a.createdAt);  
+            const dateB = new Date(b.createdAt);  
+            return dateB.getTime() - dateA.getTime(); // Newest first
+          });
         }
         this.isLoading = false;
       },
@@ -47,7 +53,7 @@ export class EventpageComponent implements OnInit {
       }
     );
   }
-
+  
   getImageUrl(base64String: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(
       'data:image/jpeg;base64,' + base64String
