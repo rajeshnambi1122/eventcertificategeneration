@@ -207,6 +207,9 @@
               {{ event.createdAt | date }}
             </p>
               <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
+              <p class="applicants-count">
+                Applicants: {{ registrationCounts[event.eventName] || 0 }}
+              </p>
             </div>
           </div>
         </div>
