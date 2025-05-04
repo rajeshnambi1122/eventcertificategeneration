@@ -162,6 +162,18 @@ export class FormComponent implements OnInit {
               return;
             }
 
+            if (response.status === 'CONFLICT') {
+              this.openDialog({
+                data: {
+                  title: 'Registration limit exceeded',
+                  message: response.message || 'Registration limit exceeded',
+                  isError: true,
+                  loading: false
+                }
+              });
+              return;
+            }
+
             console.log('Registration successful:', response);
             this.openDialog({
               data: {
@@ -179,7 +191,7 @@ export class FormComponent implements OnInit {
             this.openDialog({
               data: {
                 title: 'Error',
-                message: error.error?.message || 'Registration limit exceeded.',
+                message: error.error?.message || 'Registration failed. Please try again.',
                 isError: true,
                 loading: false
               }
