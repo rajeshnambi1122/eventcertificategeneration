@@ -202,10 +202,10 @@
               <h3>{{event.eventName}}</h3>
               <img [src]="getImageUrl(event.image)" [alt]="event.eventName" />
               <p>{{event.message}}</p>
-              <p class="event-date">
-                <i class="fas fa-calendar"></i>
-                {{ event.createdAt | date }}
-              </p>
+            <p class="event-date" style="margin-top: 1rem;">
+              <i class="fas fa-calendar"></i>
+              {{ event.createdAt | date }}
+            </p>
               <p class="coordinator">Coordinator: {{event.eventCoordinator}}</p>
             </div>
           </div>
