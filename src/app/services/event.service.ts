@@ -7,11 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class EventService {
   private apiUrl = 'https://snreventmanagement-btfbc9brepeweabh.northeurope-01.azurewebsites.net/api/events';
+  private registerUrl = 'https://snreventmanagement-btfbc9brepeweabh.northeurope-01.azurewebsites.net/api';
+
   //private apiUrl = 'https://snrcollege-h3h3ajhbbybbepfw.canadacentral-01.azurewebsites.net/api/events';
 
   constructor(private http: HttpClient) {}
 
   getEvents(): Observable<any> {
     return this.http.get(this.apiUrl);
+  }
+
+  getRegistrationCounts(): Observable<any> {
+    return this.http.get(`${this.registerUrl}/registrations/count`);
   }
 } 
