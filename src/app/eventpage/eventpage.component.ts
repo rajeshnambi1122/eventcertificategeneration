@@ -42,7 +42,7 @@ export class EventpageComponent implements OnInit {
             // Convert 'createdAt' strings to Date objects
             const dateA = new Date(a.createdAt);  
             const dateB = new Date(b.createdAt);  
-            return dateB.getTime() - dateA.getTime(); // Newest first
+            return dateA.getTime() - dateB.getTime(); // Newest first
           });
         }
         this.isLoading = false;
