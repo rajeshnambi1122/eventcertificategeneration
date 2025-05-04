@@ -179,7 +179,7 @@ export class FormComponent implements OnInit {
             this.openDialog({
               data: {
                 title: 'Error',
-                message: error.error?.message || 'Registration failed. Please try again.',
+                message: error.error?.message || 'Registration limit exceeded.',
                 isError: true,
                 loading: false
               }
