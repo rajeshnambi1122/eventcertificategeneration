@@ -24,6 +24,7 @@ interface Event {
 })
 export class EventpageComponent implements OnInit {
   events: Event[] = [];
+  registrationCounts: { [eventName: string]: number } = {}; // Store counts by event name 
   isLoading: boolean = true;
 
   constructor(
@@ -32,20 +33,37 @@ export class EventpageComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {}
 
- ngOnInit() {
+ngOnInit() {
     this.isLoading = true;
     this.eventService.getEvents().subscribe(
       (response) => {
         if (response.status === 'OK') {
-          // Sort the events based on 'createdAt' in descending order
           this.events = response.message.content.sort((a: Event, b: Event) => {
-            // Convert 'createdAt' strings to Date objects
-            const dateA = new Date(a.createdAt);  
-            const dateB = new Date(b.createdAt);  
-            return dateA.getTime() - dateB.getTime(); // Newest first
+            const dateA = new Date(a.createdAt);
+            const dateB = new Date(b.createdAt);
+            return dateA.getTime() - dateB.getTime(); // Oldest first
           });
+  
+          // After events are fetched, now fetch the registration counts
+          this.eventService.getRegistrationCounts().subscribe(
+            (regResponse) => {
+              if (regResponse.status === 'OK') {
+                // Map to easily access count by event name
+                this.registrationCounts = {};
+                regResponse.message.forEach((item: any) => {
+                  this.registrationCounts[item.eventName] = item.count;
+                });
+              }
+              this.isLoading = false;
+            },
+            (error) => {
+              console.error('Error fetching registration counts:', error);
+              this.isLoading = false;
+            }
+          );
+        } else {
+          this.isLoading = false;
         }
-        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching events:', error);
