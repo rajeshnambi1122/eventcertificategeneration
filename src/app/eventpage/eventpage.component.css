@@ -5,14 +5,14 @@
 }
 
 .event-date {
-  color: #1a237e;
+  color: #1a237e; /* deep blue */
   font-size: 0.9rem;
-  margin-top: 8px;
+  margin-top: 1rem; /* INCREASED for more space */
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}  
+}
 
 .coordinator {
   font-style: italic;
